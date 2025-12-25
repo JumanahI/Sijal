@@ -1,9 +1,7 @@
 package org.example.sijalsystem.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,7 +32,13 @@ public class User {
 
     private String age;
 
+    private String role;
+
+
     private LocalDate createdAt;
 
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
+    @JsonIgnore
+    private Customer customer;
 
 }

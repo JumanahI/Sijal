@@ -1,11 +1,34 @@
 package org.example.sijalsystem.DTO.IN;
 
-import jakarta.persistence.Entity;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-
+@Data
+@AllArgsConstructor
 public class CustomerDTOIn {
+
+    @NotBlank(message = "username must not be empty")
+    private String username;
+
+    @NotBlank(message = "password must not be empty")
+    private String password;
+
+    @NotBlank(message = "full name must not be empty")
+    private String fullName;
+
+    @Email(message = "email must be valid")
+    @NotBlank(message = "email must not be empty")
+    private String email;
+
+    @NotBlank(message = "phone number must not be empty")
+    private String phoneNumber;
+
+    @NotEmpty(message = "age must not be null")
+    private String age;
+
 }

@@ -13,8 +13,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public User createUser(String name,String username , String email , String phoneNumber , String age , String password ){
-
+    public User createUser(String name,String username , String email , String phoneNumber , String age , String password , String role){
         User user = new User();
         user.setName(name);
         user.setUsername(username);
@@ -23,7 +22,8 @@ public class UserService {
         user.setAge(age);
         user.setCreatedAt(LocalDate.now());
         user.setPassword(password); // todo must be added hash password
-
+        user.setRole(role);
         return userRepository.save(user);
     }
+
 }
