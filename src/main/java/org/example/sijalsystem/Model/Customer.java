@@ -10,17 +10,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-    public class Customer {
+public class Customer {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-        @Column(name = "cv_id")
-        private Integer cvId;
 
-        @OneToOne
-        @JoinColumn(name = "user_id", nullable = false)
-        private User user;
-    }
+    // Upload CV (PDF path)
+    @Column(name = "cv_path")
+    private String cvPath;
+
+
+
+    @OneToOne(mappedBy = "customer")
+    private GenerateCV generateCV;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+}
 
