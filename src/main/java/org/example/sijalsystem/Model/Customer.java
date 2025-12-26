@@ -25,9 +25,8 @@ public class Customer {
     private String cvPath;
 
 
-
     @OneToOne(mappedBy = "customer")
-    private GenerateCV generateCV;
+    private CV generateCV;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)

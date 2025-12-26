@@ -34,7 +34,6 @@ public class User {
 
     private String role;
 
-
     private LocalDate createdAt;
 
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
