@@ -1,0 +1,43 @@
+package org.example.sijalsystem.Controller;
+
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.example.sijalsystem.API.APIResponse;
+import org.example.sijalsystem.Model.InterviewWithHR;
+import org.example.sijalsystem.Service.InterviewWithHrService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/v1/Interview-with-hr")
+@RequiredArgsConstructor
+public class InterviewWithHrController {
+
+    private final InterviewWithHrService interviewWithHrService;
+
+    @GetMapping("/get-interviews")
+    public ResponseEntity<?> getAllInterviewWithHr(){
+        return ResponseEntity.status(200).body(interviewWithHrService.getAllInterviewWithHr());
+    }
+
+    @PostMapping("/add-interview/{request_id}")
+    public ResponseEntity<?> addInterviewWithHr(@PathVariable Integer request_id,@RequestBody @Valid InterviewWithHR interviewWithHr){
+        interviewWithHrService.addInterviewWithHr(request_id,interviewWithHr);
+        return ResponseEntity.status(200).body(new APIResponse("Interview with HR added successfully"));
+    }
+
+    @PutMapping("/update-interview/{interview_id}")
+    public ResponseEntity<?> updateInterviewWithHr(@PathVariable Integer interview_id, @RequestBody @Valid InterviewWithHR interviewWithHr){
+        interviewWithHrService.updateInterviewWithHr(interview_id, interviewWithHr);
+        return ResponseEntity.status(200).body(new APIResponse("Interview with HR updated successfully"));
+    }
+
+    @DeleteMapping("/delete-interview/{interview_id}")
+    public ResponseEntity<?> deleteInterviewWithHr(@PathVariable Integer interview_id){
+        interviewWithHrService.deleteInterviewWithHr(interview_id);
+        return ResponseEntity.status(200).body(new APIResponse("Interview with HR deleted successfully"));
+    }
+
+
+}

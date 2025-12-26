@@ -1,41 +1,34 @@
 package org.example.sijalsystem.Model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class Customer {
+@AllArgsConstructor
+@NoArgsConstructor
+public class HR {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(columnDefinition = "varchar(250) not null")
+    private String about;
 
-    // Upload CV (PDF path)
-    @Column(name = "cv_path")
-    private String cvPath;
-
-
-
-    @OneToOne(mappedBy = "customer")
-    private GenerateCV generateCV;
+    @Column(columnDefinition = "varchar(250) not null")
+    private String experience;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-
-    @OneToMany(cascade = CascadeType.ALL , mappedBy = "customer")
+    @OneToMany(cascade = CascadeType.ALL , mappedBy = "hr")
     @JsonIgnore
     private Set<RequestInterview> requestInterviewSet;
-}
 
+}
