@@ -1,4 +1,5 @@
 package org.example.sijalsystem.Model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -13,25 +15,21 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Customer {
+public class InterviewSession {
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
 
+    private String status;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
-    @PrimaryKeyJoinColumn
-    private Cv cv;
+    private LocalDateTime createdAt;
 
-    @OneToOne
-    @MapsId
+    @ManyToOne
     @JsonIgnore
-    private User user;
+    private Customer customer;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
-    private Set<InterviewSession> sessions;
-
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "interviewSession")
+    private Set<Question> questions;
 }
-

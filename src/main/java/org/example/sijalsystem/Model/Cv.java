@@ -1,5 +1,6 @@
 package org.example.sijalsystem.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,10 +14,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class GenerateCV {
+public class Cv {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Lob
@@ -33,16 +33,15 @@ public class GenerateCV {
 
     private Boolean isGenerated;
 
-    @Column(name = "created_at")
+
     private LocalDateTime createdAt;
 
-    @OneToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+
+    @OneToOne
+    @MapsId
+    @JsonIgnore
+    private Customer customer;
 
 
 }
