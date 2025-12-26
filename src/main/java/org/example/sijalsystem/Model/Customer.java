@@ -16,22 +16,21 @@ import java.util.Set;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
 
-    // Upload CV (PDF path)
-    @Column(name = "cv_path")
-    private String cvPath;
 
-
-    @OneToOne(mappedBy = "customer")
-    private CV generateCV;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
+    @PrimaryKeyJoinColumn
+    private Cv cv;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @MapsId
+    @JsonIgnore
     private User user;
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
+    private Set<InterviewSession> sessions;
 
     @OneToMany(cascade = CascadeType.ALL , mappedBy = "customer")
     @JsonIgnore

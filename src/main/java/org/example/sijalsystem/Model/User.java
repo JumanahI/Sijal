@@ -37,7 +37,7 @@ public class User {
     private LocalDate createdAt;
 
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
-    @JsonIgnore
+    @PrimaryKeyJoinColumn // لتغطية العامود في التييل الثاني بحيث انه يكون مطابق تماما لايدي التيبل هذا
     private Customer customer;
 
     //relation with hr
