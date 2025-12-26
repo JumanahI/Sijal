@@ -18,8 +18,8 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class ControllerAdvice {
 
     @ExceptionHandler(value = APIException.class)
-    public ResponseEntity<?> APIException(APIException apiExecption) {
-        String message = apiExecption.getMessage();
+    public ResponseEntity<?> APIException(APIException apiException) {
+        String message = apiException.getMessage();
         return ResponseEntity.status(400).body(new APIResponse(message));
     }
 

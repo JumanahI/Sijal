@@ -41,4 +41,9 @@ public class User {
     @JsonIgnore
     private Customer customer;
 
+    //relation with hr
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
+    @JsonIgnore
+    private HR hr;
+
 }
