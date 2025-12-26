@@ -23,4 +23,8 @@ public class Question {
     @ManyToOne
     @JsonIgnore
     private InterviewSession interviewSession;
+
+    @ManyToOne
+    @JoinColumn(name = "cv_id")
+    private CV cv;
 }

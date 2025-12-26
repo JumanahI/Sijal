@@ -20,10 +20,6 @@ public class Customer {
 
 
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
-    @PrimaryKeyJoinColumn
-    private Cv cv;
-
     @OneToOne
     @MapsId
     @JsonIgnore
