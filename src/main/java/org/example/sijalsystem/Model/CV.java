@@ -1,12 +1,12 @@
 package org.example.sijalsystem.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Data
@@ -31,15 +31,16 @@ public class CV {
     @Column(columnDefinition = "TEXT")
     private String experience;
 
-    @Column(name = "created_at")
+
     private LocalDateTime createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
+    @MapsId
+    @JsonIgnore
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "cv", cascade = CascadeType.ALL)
-    private List<Question> questions;
+
 
     @PrePersist
     protected void onCreate() {

@@ -37,7 +37,8 @@ public class InterviewAnalysisByHR {
     private Integer finalScore;
 
     @OneToOne
-    @JoinColumn(name = "interview_with_hr_id", nullable = false)
+    @MapsId
+    @JoinColumn(name = "interview_with_HR")
     private InterviewWithHR interviewWithHR;
 
 }

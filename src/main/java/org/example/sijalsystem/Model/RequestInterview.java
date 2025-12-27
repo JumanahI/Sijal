@@ -1,5 +1,6 @@
 package org.example.sijalsystem.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -43,15 +44,18 @@ public class RequestInterview {
     private LocalDate create_at;
 
     //------------------------relation----------------------------
-    @OneToOne
-    @JoinColumn(name = "interview_with_hr_id", nullable = false)
-    private InterviewWithHR interviewWithHR;
 
 
     @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "hr_id", nullable = false)
+    @JoinColumn(name = "hr_id")
     private HR hr;
+
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "request")
+    @PrimaryKeyJoinColumn
+    private InterviewWithHR interviewWithHR;
+
 }

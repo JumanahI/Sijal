@@ -24,11 +24,14 @@ public class HR {
     private String experience;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @MapsId
     private User user;
+
+
 
     @OneToMany(cascade = CascadeType.ALL , mappedBy = "hr")
     @JsonIgnore
     private Set<RequestInterview> requestInterviewSet;
+
 
 }

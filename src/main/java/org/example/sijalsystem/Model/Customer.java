@@ -18,12 +18,13 @@ public class Customer {
     @Id
     private Integer id;
 
-
-
     @OneToOne
     @MapsId
-    @JsonIgnore
     private User user;
+
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "customer")
+    @PrimaryKeyJoinColumn
+    private CV cv;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
     private Set<InterviewSession> sessions;

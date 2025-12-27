@@ -20,7 +20,6 @@ import java.time.LocalDate;
 public class InterviewWithHR {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotBlank(message = "Status must not be null")
@@ -39,11 +38,14 @@ public class InterviewWithHR {
     //------------------------relation----------------------------
 
     @OneToOne(cascade = CascadeType.ALL , mappedBy = "interviewWithHR")
+    @PrimaryKeyJoinColumn
     @JsonIgnore
     private InterviewAnalysisByHR interviewAnalysisByHR;
 
     @OneToOne
+    @MapsId
+    @JoinColumn(name = "request_id")
     @JsonIgnore
-    private RequestInterview requestInterview;
+    private RequestInterview request;
 
 }

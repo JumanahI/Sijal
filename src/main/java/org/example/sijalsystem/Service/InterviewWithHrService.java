@@ -26,7 +26,7 @@ public class InterviewWithHrService {
         if(requestInterview == null ){
             throw new APIException("request interview not found");
         }
-        interviewWithHr.setRequestInterview(requestInterview);
+//        interviewWithHr.setRequestInterview(requestInterview);
         interviewWithHrRepository.save(interviewWithHr);
     }
 

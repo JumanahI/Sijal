@@ -27,9 +27,15 @@ public class InterviewSession {
     private LocalDateTime createdAt;
 
     @ManyToOne
+    @JoinColumn(name = "customer_id")
     @JsonIgnore
     private Customer customer;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "interviewSession")
     private Set<Question> questions;
+
+
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "interviewSession")
+    @PrimaryKeyJoinColumn
+    private RecordingInterview recordingInterview;
 }

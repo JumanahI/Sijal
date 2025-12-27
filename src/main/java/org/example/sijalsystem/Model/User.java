@@ -38,10 +38,12 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
     @PrimaryKeyJoinColumn // لتغطية العامود في التييل الثاني بحيث انه يكون مطابق تماما لايدي التيبل هذا
+    @JsonIgnore
     private Customer customer;
 
     //relation with hr
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
+    @PrimaryKeyJoinColumn
     @JsonIgnore
     private HR hr;
 
