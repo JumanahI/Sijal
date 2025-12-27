@@ -4,25 +4,27 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.sijalsystem.Model.Customer;
+import org.example.sijalsystem.Model.Question;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Table(name = "cv")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cv")
 public class CV {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String summary;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String skills;
 
     @Column(columnDefinition = "TEXT")
@@ -34,8 +36,8 @@ public class CV {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", unique = true)
     private Customer customer;
 
     @OneToMany(mappedBy = "cv", cascade = CascadeType.ALL)

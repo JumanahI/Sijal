@@ -23,7 +23,7 @@ public class CustomerController {
     }
 
     @PostMapping("/create-customer")
-    public ResponseEntity<?> addCustomer(@RequestBody @Validated(ValidationGroup1.class) CustomerDTOIn customerDTOIn){
+    public ResponseEntity<?> addCustomer(@RequestBody @Valid CustomerDTOIn customerDTOIn){
         customerService.addCustomer(customerDTOIn);
         return ResponseEntity.status(200).body(new APIResponse("created customer successfully"));
     }

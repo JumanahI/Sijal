@@ -3,7 +3,6 @@ package org.example.sijalsystem.Service;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIException;
 import org.example.sijalsystem.DTO.IN.HrDTOIn;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.example.sijalsystem.Model.HR;
 import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Repository.HrRepository;
@@ -53,8 +52,7 @@ public class HrService {
 
         user.setName(hrDTOIn.getFullName());
         user.setUsername(hrDTOIn.getUsername());
-        String hash = new BCryptPasswordEncoder().encode(hrDTOIn.getPassword());
-        user.setPassword(hash);
+        user.setPassword(hrDTOIn.getPassword());
         user.setAge(hrDTOIn.getAge());
         user.setEmail(hrDTOIn.getEmail());
         user.setPhoneNumber(hrDTOIn.getPhoneNumber());

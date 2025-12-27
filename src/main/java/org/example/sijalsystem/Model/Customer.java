@@ -18,7 +18,8 @@ public class Customer {
     @Id
     private Integer id;
 
-
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private CV cv;
 
     @OneToOne
     @MapsId
