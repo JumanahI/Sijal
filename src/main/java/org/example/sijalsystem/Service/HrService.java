@@ -52,7 +52,6 @@ public class HrService {
 
         user.setName(hrDTOIn.getFullName());
         user.setUsername(hrDTOIn.getUsername());
-
         user.setPassword(hrDTOIn.getPassword());
         user.setAge(hrDTOIn.getAge());
         user.setEmail(hrDTOIn.getEmail());

@@ -12,23 +12,23 @@ import org.example.sijalsystem.vaildationGroups.ValidationGroup1;
 @AllArgsConstructor
 public class CustomerDTOIn {
 
-    @NotBlank(message = "username must not be empty" , groups = ValidationGroup1.class)
+    @NotBlank(message = "username must not be empty" )
     private String username;
 
-    @NotBlank(message = "password must not be empty" , groups = ValidationGroup1.class)
+    @NotBlank(message = "password must not be empty" )
     private String password;
 
-    @NotBlank(message = "full name must not be empty" , groups = ValidationGroup1.class)
+    @NotBlank(message = "full name must not be empty" )
     private String fullName;
 
-    @Email(message = "email must be valid" , groups = ValidationGroup1.class)
-    @NotBlank(message = "email must not be empty" , groups = ValidationGroup1.class)
+    @Email(message = "email must be valid")
+    @NotBlank(message = "email must not be empty" )
     private String email;
 
-    @NotBlank(message = "phone number must not be empty" , groups = ValidationGroup1.class)
+    @NotBlank(message = "phone number must not be empty" )
     private String phoneNumber;
 
-    @NotEmpty(message = "age must not be null" , groups = ValidationGroup1.class)
+    @NotEmpty(message = "age must not be null" )
     private String age;
 
     private String cvPath;
