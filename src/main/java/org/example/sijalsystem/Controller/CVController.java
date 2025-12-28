@@ -24,7 +24,7 @@ public class CVController {
     private final CVPdfGeneratorService cvPdfGeneratorService;
     private final SendMailService sendMailService;
 
-    @PutMapping("/get-all-cv")
+    @GetMapping("/get-all-cv")
     public ResponseEntity<?> getAllCv() {
         return ResponseEntity.ok(cvService.getAllCvs());
     }
