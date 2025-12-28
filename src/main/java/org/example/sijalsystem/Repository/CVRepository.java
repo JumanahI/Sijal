@@ -8,8 +8,9 @@ import java.util.Optional;
 
 @Repository
 public interface CVRepository extends JpaRepository<CV, Integer> {
-    CV findByCustomerId(Integer customerId);
+    CV findCVByCustomerId(Integer customerId);
 
     CV findCVById(Integer id);
+
     boolean existsByCustomerId(Integer customerId);
 }

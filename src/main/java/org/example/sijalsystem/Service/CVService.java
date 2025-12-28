@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,61 @@ public class CVService {
 
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
     private static final String ALLOWED_CONTENT_TYPE = "application/pdf";
+
+
+    public List<CV> getAllCvs(){
+        return cvRepository.findAll();
+    }
+
+    public void createCv(Integer customerId,CvDataDTO cvDataDTO){
+        Customer customer = customerRepository.findCustomerById(customerId);
+
+        if (customer == null){
+            throw new APIException("customer not found");
+        }
+        CV cv = new CV();
+        cv.setCustomer(customer);
+        cv.setEducation(cvDataDTO.getEducation());
+        cv.setExperience(cvDataDTO.getExperience());
+        cv.setSkills(cvDataDTO.getSkills());
+        cv.setSummary(cvDataDTO.getSummary());
+        cv.setCreatedAt(LocalDateTime.now());
+        customer.setCv(cv);
+
+        cvRepository.save(cv);
+        customerRepository.save(customer);
+    }
+
+    public void updateCv(Integer customerId , CvDataDTO cvDataDTO){
+        Customer customer = customerRepository.findCustomerById(customerId);
+        CV cv = cvRepository.findCVByCustomerId(customerId);
+        if (customer == null){
+            throw new APIException("customer not found");
+        }
+
+        if (cv == null){
+            throw new APIException("cv not found");
+        }
+
+        cv.setEducation(cv.getEducation());
+        cv.setExperience(cv.getExperience());
+        cv.setSkills(cv.getSkills());
+        cv.setSummary(cv.getSummary());
+        cvRepository.save(cv);
+    }
+
+    public void deleteCv(Integer customerId){
+        Customer customer = customerRepository.findCustomerById(customerId);
+        CV cv = cvRepository.findCVByCustomerId(customerId);
+        if (customer == null){
+            throw new APIException("customer not found");
+        }
+
+        if (cv == null){
+            throw new APIException("cv not found");
+        }
+        cvRepository.delete(cv);
+    }
 
     @Transactional
     public CvUploadResponse uploadAndParseCV(MultipartFile file, Integer customerId) {
@@ -92,12 +148,12 @@ public class CVService {
         }
     }
 
-    public CV getCVById(Integer id) {
-        CV cv = cvRepository.findCVById(id);
+    public CV getCVById(Integer customerId) {
+        CV cv = cvRepository.findCVByCustomerId(customerId);
         if (cv == null){
             throw new APIException("cv not found");
         }
-        return cvRepository.findCVById(id);
+        return cvRepository.findCVById(customerId);
     }
 
 
@@ -107,7 +163,7 @@ public class CVService {
         validateFile(file);
 
         // Get existing CV
-        CV existingCV = cvRepository.findByCustomerId(customerId);
+        CV existingCV = cvRepository.findCVByCustomerId(customerId);
         if (existingCV == null){
             throw new APIException("No CV found for customer:  +" + customerId);
         }
@@ -140,28 +196,5 @@ public class CVService {
         }
     }
 
-    public void deleteCustomerCV(Integer customerId) {
-        CV cv = cvRepository.findByCustomerId(customerId);
-        if (cv == null) {
-            throw new APIException("No CV found for customer: " + customerId);
-        }
-        cvRepository.delete(cv);
-
-        log.info("CV deleted successfully for customer: {}", customerId);
-    }
-
-
-
-
-    public CV addCv(Integer customerId, CV cv) {
-
-        Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
-
-        cv.setCreatedAt(LocalDateTime.now());
-        cv.setCustomer(customer);   // مهم جدًا مع @MapsId
-
-        return cvRepository.save(cv);
-    }
 
 }

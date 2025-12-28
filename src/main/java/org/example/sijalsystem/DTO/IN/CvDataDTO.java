@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CvDataDTO {
 
+    private Integer customerId;
     private String summary;
     private String skills;
     private String education;

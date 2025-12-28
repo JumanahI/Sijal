@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Professional Resume</title>
+
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #000;
+            background: #fff;
+            line-height: 1.7;
+        }
+
+        .container {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 45px 55px;
+        }
+
+        /* HEADER */
+        .header {
+            margin-bottom: 35px;
+        }
+
+        .name {
+            font-size: 34px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #444;
+            margin-bottom: 12px;
+        }
+
+        .contact {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .contact span {
+            margin-right: 10px;
+        }
+
+        /* SECTIONS */
+        .section {
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #000;
+            padding-bottom: 4px;
+            margin-bottom: 10px;
+        }
+
+        .section-content {
+            font-size: 13.5px;
+            color: #222;
+        }
+
+        /* SKILLS */
+        .skills-list {
+            list-style: disc;
+            margin-left: 20px;
+        }
+
+        .skills-list li {
+            font-size: 13.5px;
+            margin-bottom: 4px;
+        }
+
+        /* EXPERIENCE */
+        .experience-item {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="name" th:text="${customerName}">NAME</div>
+        <div class="title">Backend Developer | Java &amp; Spring Boot</div>
+
+        <div class="contact">
+            <span th:if="${phoneNumber}" th:text="${phoneNumber}"></span>
+            <span th:if="${email}" th:text="${email}"></span>
+            <span th:text="${location}"></span>
+        </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="section">
+        <div class="section-title">Summary</div>
+        <div class="section-content">
+            <p th:if="${summary}" th:text="${summary}"></p>
+            <p th:unless="${summary}">Professional summary not provided.</p>
+        </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="section">
+        <div class="section-title">Education</div>
+        <div class="section-content">
+            <div th:each="line : ${educationLines}">
+                <p th:text="${line}"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="section">
+        <div class="section-title">Professional Experience</div>
+        <div class="section-content">
+            <div th:each="line : ${experienceLines}">
+                <div class="experience-item" th:text="${line}"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="section">
+        <div class="section-title">Skills</div>
+        <div class="section-content">
+            <ul class="skills-list">
+                <li th:each="skill : ${skills}" th:text="${skill}"></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
