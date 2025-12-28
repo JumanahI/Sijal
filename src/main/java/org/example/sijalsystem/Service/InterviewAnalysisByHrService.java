@@ -27,10 +27,13 @@ public class InterviewAnalysisByHrService {
         if(interviewWithHR == null){
             throw new APIException("Interview with HR not found");
         }
+        if(!interviewWithHR.getStatus().equalsIgnoreCase("COMPLETE")) {
+            throw new APIException("Interview status is not COMPLETE");
+        }
         interviewAnalysisByHR.setInterviewWithHR(interviewWithHR);
         interviewAnalysisByHrRepository.save(interviewAnalysisByHR);
-    }
 
+    }
 
     public void updateInterviewAnalysisByHR(Integer interviewAnalysis_id , InterviewAnalysisByHR interviewAnalysisByHR){
         InterviewAnalysisByHR oldInterviewAnalysisByHR = interviewAnalysisByHrRepository.findByInterviewWithHR_Id(interviewAnalysis_id);
@@ -54,4 +57,5 @@ public class InterviewAnalysisByHrService {
         }
         interviewAnalysisByHrRepository.delete(interviewAnalysisByHR);
     }
+
 }

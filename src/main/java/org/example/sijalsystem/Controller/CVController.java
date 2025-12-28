@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 public class CVController {
 
+
     private final CVService cvService;
 
     @GetMapping("/{id}")
