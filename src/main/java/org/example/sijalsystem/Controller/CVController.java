@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/api/cvs")
+@RequestMapping("/api/cv")
 @RequiredArgsConstructor
 @Slf4j
 public class CVController {
@@ -55,12 +55,8 @@ public class CVController {
         return ResponseEntity.ok(new APIResponse("CV deleted successfully"));
     }
 
-    @GetMapping("get-cv-by-customer/{id}")
-    public ResponseEntity<?> getCVById(@PathVariable Integer id) {
-        return ResponseEntity.ok(cvService.getCVById(id));
-    }
 
-    @PostMapping("/upload")
+    @PostMapping("/upload-cv")
     public ResponseEntity<?> uploadCV(@RequestParam("file") MultipartFile file, @RequestParam("customerId") Integer customerId) {
 
         log.info("Received CV upload request for customer: {}", customerId);
@@ -68,20 +64,12 @@ public class CVController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<?> updateCV(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("customerId") Integer customerId) {
-
-        log.info("Received CV update request for customer: {}", customerId);
-        CvUploadResponse response = cvService.updateCustomerCV(file, customerId);
-        return ResponseEntity.ok(response);
+    @GetMapping("/get-cv-by-customer/{id}")
+    public ResponseEntity<?> getCVById(@PathVariable Integer id) {
+        return ResponseEntity.ok(cvService.getCVById(id));
     }
 
-
-
-
-    @GetMapping("/{id}/download")
+    @GetMapping("/download-cv/{id}")
     public ResponseEntity<?> downloadCVAsPdf(@PathVariable Integer id) {
         log.info("Request to download CV as PDF, id: {}", id);
 
