@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.sijalsystem.Model.Customer;
-import org.example.sijalsystem.Model.Question;
 
 import java.time.LocalDateTime;
 

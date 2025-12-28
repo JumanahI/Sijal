@@ -60,8 +60,4 @@ public class CustomerService {
         }
         customerRepository.delete(customer);
     }
-
-    public void uploadCv(){
-
-    }
 }
