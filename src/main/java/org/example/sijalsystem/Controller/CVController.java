@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 public class CVController {
 
+
     private final CVService cvService;
     private final CVPdfGeneratorService cvPdfGeneratorService;
     private final SendMailService sendMailService;

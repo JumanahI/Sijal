@@ -39,5 +39,23 @@ public class InterviewWithHrController {
         return ResponseEntity.status(200).body(new APIResponse("Interview with HR deleted successfully"));
     }
 
+    @PutMapping("/start-interview/{hr_id}/{interview_id}")
+    public ResponseEntity<?> startInterview(@PathVariable Integer hr_id,@PathVariable Integer interview_id){
+        interviewWithHrService.startInterview(hr_id, interview_id);
+        return ResponseEntity.status(200).body(new APIResponse("Interview with HR started successfully"));
+    }
+
+    @PutMapping("/end-interview/{hr_id}/{interview_id}")
+    public ResponseEntity<?> endInterview(@PathVariable Integer hr_id,@PathVariable Integer interview_id){
+        interviewWithHrService.endInterview(hr_id, interview_id);
+        return ResponseEntity.status(200).body(new APIResponse("Interview with HR ended successfully"));
+    }
+
+    @PutMapping("/cancel-interview/{hr_id}/{interview_id}")
+    public ResponseEntity<?> cancelInterview(@PathVariable Integer hr_id,@PathVariable Integer interview_id){
+        interviewWithHrService.cancelInterview(hr_id, interview_id);
+        return ResponseEntity.status(200).body(new APIResponse("Interview with HR canceled successfully"));
+    }
+
 
 }
