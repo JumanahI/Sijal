@@ -30,12 +30,11 @@ public class RequestInterview {
     @Column(columnDefinition = "varchar(150) not null")
     private String message;
 
-    @NotBlank(message = "Status must not be null")
     @Pattern(regexp = "^(APPROVE|PENDING|REJECTED)$",message = "Status must be either APPROVE,PENDING or REJECTED")
-    @Column(columnDefinition = "varchar(20) not null")
+    @Column(columnDefinition = "varchar(20) ")
     private String status;
 
-    @NotNull(message = "Status must not be null")
+    @NotNull(message = "Start time must not be null")
     @Column(columnDefinition = "dateTime not null")
     private LocalDate startTime;
 

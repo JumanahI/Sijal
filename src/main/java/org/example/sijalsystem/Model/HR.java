@@ -28,7 +28,6 @@ public class HR {
     private User user;
 
 
-
     @OneToMany(cascade = CascadeType.ALL , mappedBy = "hr")
     @JsonIgnore
     private Set<RequestInterview> requestInterviewSet;
