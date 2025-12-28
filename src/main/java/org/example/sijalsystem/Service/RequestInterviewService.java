@@ -26,7 +26,7 @@ public class RequestInterviewService {
 
     public void addRequestInterview(Integer customer_id,Integer hr_id,RequestInterview requestInterview){
         HR hr = hrRepository.findHRById(hr_id);
-        Customer customer = customerRepository.findCustomerByUser_Id(customer_id);
+        Customer customer = customerRepository.findCustomerById(customer_id);
         if(hr == null || customer == null){
             throw new APIException("HR or Customer not found");
         }

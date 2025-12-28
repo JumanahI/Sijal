@@ -48,4 +48,12 @@ public class CVController {
         cvService.deleteCustomerCV(customerId);
         return ResponseEntity.noContent().build();
     }
+
+
+
+//    @PostMapping("/customer/{customerId}")
+//    public CV addCv(@PathVariable Integer customerId, @RequestBody CV cv) {
+//        return cvService.addCv(customerId, cv);
+//    }
+
 }

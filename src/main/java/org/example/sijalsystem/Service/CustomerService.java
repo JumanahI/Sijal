@@ -53,7 +53,7 @@ public class CustomerService {
 
 
     public void deleteCustomer(Integer userId){
-        Customer customer = customerRepository.findCustomerByUser_Id(userId);
+        Customer customer = customerRepository.findCustomerById(userId);
 
         if (customer == null){
             throw new APIException("customer not found");

@@ -38,4 +38,8 @@ public class InterviewSession {
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "interviewSession")
     @PrimaryKeyJoinColumn
     private RecordingInterview recordingInterview;
+
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "interviewSession")
+    @PrimaryKeyJoinColumn
+    private InterviewAnalysisByAi interviewAnalysisByAi;
 }
