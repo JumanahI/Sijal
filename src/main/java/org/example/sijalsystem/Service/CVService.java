@@ -149,4 +149,19 @@ public class CVService {
 
         log.info("CV deleted successfully for customer: {}", customerId);
     }
+
+
+
+
+    public CV addCv(Integer customerId, CV cv) {
+
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        cv.setCreatedAt(LocalDateTime.now());
+        cv.setCustomer(customer);   // مهم جدًا مع @MapsId
+
+        return cvRepository.save(cv);
+    }
+
 }

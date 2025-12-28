@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RecordingInterviewRepository extends JpaRepository<RecordingInterview,Integer> {
+    RecordingInterview findRecordingInterviewById(Integer id);
 }
