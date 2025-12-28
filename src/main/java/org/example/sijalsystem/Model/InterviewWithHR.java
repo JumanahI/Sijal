@@ -22,9 +22,8 @@ public class InterviewWithHR {
     @Id
     private Integer id;
 
-    @NotBlank(message = "Status must not be null")
-    @Pattern(regexp = "^(UPCOMING|RUNNING|COMPLETE)$",message = "Status must be either UPCOMING, RUNNING  or COMPLETE")
-    @Column(columnDefinition = "varchar(20) not null")
+    @Pattern(regexp = "^(UPCOMING|RUNNING|COMPLETE|CANCEL)$",message = "Status must be either UPCOMING, RUNNING  or COMPLETE")
+    @Column(columnDefinition = "varchar(20)  ")
     private String status;
 
     @NotBlank(message = "Status must not be null")
