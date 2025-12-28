@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface CustomerRepository extends JpaRepository<Customer , Integer> {
 
     Customer findCustomerById(Integer id);
+
+    Customer findCustomerByUser_Id(Integer userId);
 }
