@@ -10,8 +10,10 @@ import org.example.sijalsystem.DTO.IN.CvUploadResponse;
 import org.example.sijalsystem.DTO.OUT.CVRecommendationDTO;
 import org.example.sijalsystem.Model.CV;
 import org.example.sijalsystem.Model.Customer;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Repository.CVRepository;
 import org.example.sijalsystem.Repository.CustomerRepository;
+import org.example.sijalsystem.Repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import tools.jackson.databind.ObjectMapper;
@@ -34,6 +36,7 @@ public class CVService {
     private static final String ALLOWED_CONTENT_TYPE = "application/pdf";
     private final OpenAiService openAiService;
     private final ObjectMapper objectMapper;
+    private final UserRepository userRepository;
 
 
     public List<CV> getAllCvs(){
@@ -91,11 +94,9 @@ public class CVService {
     }
 
     @Transactional
-    public CvUploadResponse uploadAndParseCV(MultipartFile file, Integer customerId) {
-        // Validate file
+    public CvUploadResponse uploadAndParseCV(Integer userId ,MultipartFile file, Integer customerId) {
+        User user = userRepository.findUserById(userId);
         validateFile(file);
-
-        // Get customer
         Customer customer = customerRepository.findCustomerById(customerId);
         if (customer == null) {
             throw new APIException("customer not found");

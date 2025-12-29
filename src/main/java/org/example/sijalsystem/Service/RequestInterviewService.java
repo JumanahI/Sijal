@@ -105,6 +105,9 @@ public class RequestInterviewService {
             if(!requestInterview.getCustomer().getId().equals(customer.getId())){
                 throw new APIException("Customer not authorized to delete this request");
             }
+            if(!requestInterview.getStatus().equalsIgnoreCase("PENDING")){
+                throw new APIException("You can't update pending interview request");
+            }
             oldRequestInterview.setMessage(requestInterview.getMessage());
             oldRequestInterview.setStartTime(requestInterview.getStartTime());
             requestInterviewRepository.save(oldRequestInterview);

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIException;
 import org.example.sijalsystem.Model.Card;
 import org.example.sijalsystem.Model.Customer;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Repository.CardRepository;
 import org.example.sijalsystem.Repository.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class CardService {
     }
 
     public void addCard(Integer customer_id , Card card){
-        Customer customer = customerRepository.findCustomerByUser_Id(customer_id);
+        Customer customer = customerRepository.findCustomerById(customer_id);
         if(customer == null){
             throw new APIException("Customer not found");
         }

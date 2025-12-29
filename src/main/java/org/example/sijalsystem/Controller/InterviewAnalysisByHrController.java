@@ -4,8 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIResponse;
 import org.example.sijalsystem.Model.InterviewAnalysisByHR;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Service.InterviewAnalysisByHrService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +19,7 @@ public class InterviewAnalysisByHrController {
     private final InterviewAnalysisByHrService interviewAnalysisByHrService;
 
     @GetMapping("/get-interviews-analysis")
-    public ResponseEntity<?> getAllInterviewAnalysis(){
+    public ResponseEntity<?> getAllInterviewAnalysis(@AuthenticationPrincipal User user){
         return ResponseEntity.status(200).body(interviewAnalysisByHrService.getAllInterviewAnalysisByHr());
     }
 

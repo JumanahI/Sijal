@@ -4,8 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIResponse;
 import org.example.sijalsystem.Model.Card;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Service.CardService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -21,21 +23,21 @@ public class CardController {
         return ResponseEntity.status(200).body(cardService.getCards());
     }
 
-    @PostMapping("/add-card/{customer_id}")
-    public ResponseEntity<?> addCard(@PathVariable Integer customer_id ,@RequestBody @Valid Card card){
-        cardService.addCard(customer_id,card);
+    @PostMapping("/add-card")
+    public ResponseEntity<?> addCard(@AuthenticationPrincipal User user , @RequestBody @Valid Card card){
+        cardService.addCard(user.getId(), card);
         return ResponseEntity.status(200).body(new APIResponse("Card added successfully"));
     }
 
-    @PutMapping("/update-card/{customer_id}/{card_id}")
-    public ResponseEntity<?> updateCard(@PathVariable Integer customer_id, @PathVariable Integer card_id,@RequestBody @Valid Card card){
-        cardService.updateCard(customer_id,card_id,card);
+    @PutMapping("/update-card/{card_id}")
+    public ResponseEntity<?> updateCard(@AuthenticationPrincipal User user, @PathVariable Integer card_id,@RequestBody @Valid Card card){
+        cardService.updateCard(user.getId(), card_id ,card);
         return ResponseEntity.status(200).body(new APIResponse("Card updated successfully"));
     }
 
-    @DeleteMapping("/delete-card/{customer_id}/{card_id}")
-    public ResponseEntity<?> deleteCard(@PathVariable Integer customer_id,@PathVariable Integer card_id){
-        cardService.deleteCard(customer_id, card_id);
+    @DeleteMapping("/delete-card/{card_id}")
+    public ResponseEntity<?> deleteCard(@AuthenticationPrincipal User user,@PathVariable Integer card_id){
+        cardService.deleteCard(user.getId(), card_id);
         return ResponseEntity.status(200).body(new APIResponse("Card deleted successfully"));
     }
 }

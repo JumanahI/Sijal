@@ -73,11 +73,16 @@ public class HrService {
         hrRepository.delete(hr);
     }
 
-    public List<HR> findAllHROrderByHighestRating(){
+    public List<HR> findAllHROrderByHighestRating(Integer userid){
+        User user = userRepository.findUserById(userid);
+        if (user == null){
+            throw new APIException("user not found");
+        }
         return hrRepository.findAllHROrderByHighestRating();
     }
 
-    public void activeHrByAdmin(Integer hrId){
+    public void activeHrByAdmin(Integer userId,Integer hrId){
+        User user = userRepository.findUserById(userId);
         HR hr=hrRepository.findHRById(hrId);
         if (hr==null){
             throw new APIException("The hr id is not exists");
