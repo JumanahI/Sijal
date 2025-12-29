@@ -25,10 +25,10 @@ public class CV {
     @Lob
     private String skills;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String education;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String experience;
 
     @Column(name = "created_at")

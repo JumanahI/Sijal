@@ -18,7 +18,7 @@ public class Customer {
     @Id
     private Integer id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @MapsId
     private User user;
 

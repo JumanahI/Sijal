@@ -2,6 +2,7 @@ package org.example.sijalsystem.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.sijalsystem.Model.CV;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -113,5 +114,70 @@ public class OpenAiService {
         return text.trim();
     }
 
+    private String safe(String text) {
+        if (text == null) return "";
+        return text
+                .replace("&", "and")
+                .replace("<", "")
+                .replace(">", "")
+                .replace("\"", "'");
+    }
 
+
+    public String cvImprovementSuggestions(CV cv) {
+
+        String prompt = """
+    ROLE:
+    You are a senior HR professional and CV reviewer.
+
+    TASK:
+    Review the following CV data and provide improvement suggestions only.
+
+    RULES:
+    - Do NOT rewrite the CV
+    - Do NOT invent information
+    - Only suggest improvements
+    - Be clear and professional
+    - Return output as JSON
+
+    INPUT CV:
+    Summary:
+    "%s"
+
+    Skills:
+    "%s"
+
+    Education:
+    "%s"
+
+    Experience:
+    "%s"
+
+    OUTPUT:
+    Return ONLY valid JSON in the following exact format and nothing else:
+    
+    {
+    "summarySuggestions": ["..."],
+    "skillsSuggestions": ["..."],
+    "experienceSuggestions": ["..."],
+    "generalTips": ["..."]
+    }
+    
+    
+    IMPORTANT:
+    - Do not include explanations
+    - Do not include markdown
+    - Do not include comments
+    - Do not include text before or after the JSON
+    
+    
+    """.formatted(
+                safe(cv.getSummary()),
+                safe(cv.getSkills()),
+                safe(cv.getEducation()),
+                safe(cv.getExperience())
+        );
+
+       return ask(prompt);
+    }
 }

@@ -7,12 +7,14 @@ import org.example.sijalsystem.API.APIException;
 import org.example.sijalsystem.Advice.CVProcessingException;
 import org.example.sijalsystem.DTO.IN.CvDataDTO;
 import org.example.sijalsystem.DTO.IN.CvUploadResponse;
+import org.example.sijalsystem.DTO.OUT.CVRecommendationDTO;
 import org.example.sijalsystem.Model.CV;
 import org.example.sijalsystem.Model.Customer;
 import org.example.sijalsystem.Repository.CVRepository;
 import org.example.sijalsystem.Repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -30,6 +32,8 @@ public class CVService {
 
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
     private static final String ALLOWED_CONTENT_TYPE = "application/pdf";
+    private final OpenAiService openAiService;
+    private final ObjectMapper objectMapper;
 
 
     public List<CV> getAllCvs(){
@@ -66,10 +70,10 @@ public class CVService {
             throw new APIException("cv not found");
         }
 
-        cv.setEducation(cv.getEducation());
-        cv.setExperience(cv.getExperience());
-        cv.setSkills(cv.getSkills());
-        cv.setSummary(cv.getSummary());
+        cv.setEducation(cvDataDTO.getEducation());;
+        cv.setExperience(cvDataDTO.getExperience());
+        cv.setSkills(cvDataDTO.getSkills());
+        cv.setSummary(cvDataDTO.getSummary());
         cvRepository.save(cv);
     }
 
@@ -196,5 +200,17 @@ public class CVService {
         }
     }
 
+    public CVRecommendationDTO recommendationFromAI(Integer customerId){
+        Customer customer = customerRepository.findCustomerById(customerId);
+        CV cv = cvRepository.findCVByCustomerId(customerId);
+        if (customer == null){
+            throw new APIException("customer not found");
+        }
+        if (cv == null){
+            throw new APIException("you don't has cv , create now!");
+        }
+        String AIResponse = openAiService.cvImprovementSuggestions(customer.getCv());
+        return objectMapper.readValue(AIResponse , CVRecommendationDTO.class);
+    }
 
 }

@@ -35,7 +35,7 @@ public class CVController {
             @RequestBody CvDataDTO cvDataDTO
     ) {
         cvService.createCv(customerId, cvDataDTO);
-        return ResponseEntity.ok("CV created successfully");
+        return ResponseEntity.ok(new APIResponse("cv created successfully"));
     }
 
     @PutMapping("update-cv/{customerId}")
@@ -44,7 +44,7 @@ public class CVController {
             @RequestBody CvDataDTO cvDataDTO
     ) {
         cvService.updateCv(customerId, cvDataDTO);
-        return ResponseEntity.ok(new APIResponse("CV updated successfully"));
+        return ResponseEntity.ok(new APIResponse("cv updated successfully"));
     }
 
     @DeleteMapping("delete-cv/{customerId}")
@@ -52,7 +52,7 @@ public class CVController {
             @PathVariable Integer customerId
     ) {
         cvService.deleteCv(customerId);
-        return ResponseEntity.ok(new APIResponse("CV deleted successfully"));
+        return ResponseEntity.ok(new APIResponse("cv deleted successfully"));
     }
 
 
@@ -64,10 +64,6 @@ public class CVController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/get-cv-by-customer/{id}")
-    public ResponseEntity<?> getCVById(@PathVariable Integer id) {
-        return ResponseEntity.ok(cvService.getCVById(id));
-    }
 
     @GetMapping("/download-cv/{id}")
     public ResponseEntity<?> downloadCVAsPdf(@PathVariable Integer id) {
@@ -78,7 +74,7 @@ public class CVController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDisposition(ContentDisposition.builder
-                        ("attachment").filename("CVFromSijal" + id + ".pdf")
+                        ("attachment").filename("Your-CV" + id + ".pdf")
                         .build()
         );
 
@@ -94,5 +90,17 @@ public class CVController {
         sendMailService.sendCVByEmail(customerId, request.getRecipientEmail(), request.getMessage());
 
         return ResponseEntity.ok(new APIResponse("CV sent successfully to " + request.getRecipientEmail()));
+    }
+
+    @GetMapping("/get-recommendation/{customerId}")
+    public ResponseEntity<?> recommendationFromAI (@PathVariable Integer customerId){
+        return ResponseEntity.status(200).body(cvService.recommendationFromAI(customerId));
+    }
+
+
+
+    @GetMapping("/get-cv-by-customer/{id}")
+    public ResponseEntity<?> getCVById(@PathVariable Integer id) {
+        return ResponseEntity.ok(cvService.getCVById(id));
     }
 }
