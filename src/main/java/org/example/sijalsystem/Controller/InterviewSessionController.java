@@ -26,8 +26,8 @@ public class InterviewSessionController {
     }
 //extra11
     @PostMapping("/start-session-with-description/{customerId}")
-    public ResponseEntity<?> startWithDes(@PathVariable Integer customerId, @RequestBody JopDescription jopDescription){
-        interviewSessionService.startSessionAndGenerateQuestions(customerId,jopDescription);
+    public ResponseEntity<?> startWithDes(@PathVariable Integer customerId, @RequestBody JopDescription jobDescription){
+        interviewSessionService.startSessionAndGenerateQuestions(customerId,jobDescription);
         return ResponseEntity.status(200).body(new APIResponse("تم إعداد المقابلة بنجاح" +
                 "ستصلك رسالة على بريدك الإلكتروني تتضمن رقم جلسة المقابلة وخطوات البدء" +
                 "يرجى التأكد من جاهزية الهاتف قبل بدء المقابلة. "));

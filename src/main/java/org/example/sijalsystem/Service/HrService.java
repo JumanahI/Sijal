@@ -77,7 +77,11 @@ public class HrService {
         return hrRepository.findAllHROrderByHighestRating();
     }
 
-    public void activeHrByAdmin(Integer hrId){
+    public void activeHrByAdmin(Integer userid ,Integer hrId){
+        User admin=userRepository.findUserById(userid);
+        if (admin==null){
+            throw new APIException("You ar not admin");
+        }
         HR hr=hrRepository.findHRById(hrId);
         if (hr==null){
             throw new APIException("The hr id is not exists");

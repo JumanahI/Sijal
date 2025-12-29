@@ -19,7 +19,7 @@ public class AdminController {
     //extra1
     @PostMapping("/active-account/{hrId}")
     public ResponseEntity<?> activeHrAccount(@PathVariable Integer hrId){
-        hrService.activeHrByAdmin(hrId);
+//        hrService.activeHrByAdmin(hrId);
         return ResponseEntity.status(200).body(new APIResponse("The HR account active successfully "));
     }
 }

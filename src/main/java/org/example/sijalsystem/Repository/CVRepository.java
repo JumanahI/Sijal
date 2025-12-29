@@ -11,6 +11,4 @@ public interface CVRepository extends JpaRepository<CV, Integer> {
     CV findCVByCustomerId(Integer customerId);
 
     CV findCVById(Integer id);
-
-    boolean existsByCustomerId(Integer customerId);
 }
