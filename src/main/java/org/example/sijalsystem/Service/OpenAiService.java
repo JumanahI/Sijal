@@ -103,6 +103,7 @@ public class OpenAiService {
         }
         return null;
     }
+
     public String askForJson(String prompt) {
         String strict = """
     Output ONLY valid JSON. No markdown. No extra text.
@@ -112,6 +113,8 @@ public class OpenAiService {
         if (text == null) return null;
         return text.trim();
     }
+
+
 
 
 }
