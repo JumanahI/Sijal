@@ -39,13 +39,13 @@ public class HrService {
         hr.setAbout(hrDTOIn.getAbout());
         hr.setExperience(hrDTOIn.getExperience());
         hr.setUser(user);
-        hr.setStatus("active");
         hrRepository.save(hr);
 
         user.setHr(hr);
         user.setCreatedAt(LocalDate.now());
         userRepository.save(user);
     }
+
 
 
     public void updateHr(Integer hr_id , HrDTOIn hrDTOIn){

@@ -25,6 +25,7 @@ public class RequestInterviewService {
     private final JitsiService jitsiService;
     private final InterviewWithHrRepository interviewWithHrRepository;
 
+
     public List<RequestInterview> getRequestInterview() {
         return requestInterviewRepository.findAll();
     }

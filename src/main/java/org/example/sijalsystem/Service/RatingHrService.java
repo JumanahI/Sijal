@@ -79,6 +79,7 @@ public class RatingHrService {
         ratingHrRepository.delete(rating);
     }
 
+
     public List<RatingHr> findRatingHrByHrId(Integer hr_id){
         return ratingHrRepository.findRatingHrByHrId(hr_id);
     }

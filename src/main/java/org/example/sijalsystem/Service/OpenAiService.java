@@ -209,6 +209,7 @@ public class OpenAiService {
             ));
         }
 
+
         String prompt = """
                 ROLE:
                 You are a senior HR career advisor.

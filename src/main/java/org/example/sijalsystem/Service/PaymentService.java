@@ -15,7 +15,6 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class PaymentService {
 
-
     @Value("${moyasar.api.key}")
     private String apiKey;
 

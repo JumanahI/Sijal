@@ -9,11 +9,9 @@ public interface InterviewAnalysisByHrRepository extends JpaRepository<Interview
 
     InterviewAnalysisByHR findByInterviewWithHR_Id(Integer id);
 
-    // كل التحليلات حسب customer
     List<InterviewAnalysisByHR>
     findByInterviewWithHR_Request_Customer_Id(Integer customerId);
 
-    // كل التحليلات حسب hr
     List<InterviewAnalysisByHR>
     findByInterviewWithHR_Request_Hr_Id(Integer hrId);
 }

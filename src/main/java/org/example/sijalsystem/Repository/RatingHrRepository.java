@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface RatingHrRepository extends JpaRepository<RatingHr,Integer> {
 
+
     RatingHr findRatingHrById(Integer id);
 
     List<RatingHr> findRatingHrByHrId(Integer hr_id);

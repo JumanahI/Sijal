@@ -50,4 +50,5 @@ public class HrController {
         return ResponseEntity.status(200).body(new APIResponse("Hr activated successfully"));
     }
 
+
 }

@@ -11,6 +11,7 @@ public interface HrRepository extends JpaRepository<HR,Integer> {
     HR findHRById(Integer id);
 
 
+
     @Query("SELECT hr " +
             "FROM HR hr " +
             "LEFT JOIN hr.ratingHr r " +

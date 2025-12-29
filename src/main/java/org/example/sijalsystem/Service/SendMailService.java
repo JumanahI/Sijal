@@ -30,6 +30,7 @@ public class SendMailService {
         javaEmailSender.send(simpleMailMessage);
     }
 
+
     public void sendMessageWithAttachment(String email, String subject, String body,
                                           byte[] attachment, String attachmentName) {
         try {

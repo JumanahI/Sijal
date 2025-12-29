@@ -15,6 +15,7 @@ public class InterviewAnalysisByAiController {
 
     private final InterviewAnalysisByAiService analysisService;
 
+
     @GetMapping("/all-analysis/{customerId}")
     public ResponseEntity<?> getAll(@PathVariable Integer customerId) {
         return ResponseEntity.status(200).body(analysisService.getAllAnalysesForCustomer(customerId));
