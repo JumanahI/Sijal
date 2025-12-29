@@ -26,10 +26,13 @@ public class InterviewSession {
 
     private LocalDateTime createdAt;
 
+    private String jopDescription;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonIgnore
     private Customer customer;
+
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "interviewSession")
     private Set<Question> questions;

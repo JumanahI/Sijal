@@ -1,12 +1,14 @@
 package org.example.sijalsystem.Service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.sijalsystem.API.APIException;
 import org.example.sijalsystem.Model.InterviewSession;
 import org.example.sijalsystem.Model.RecordingInterview;
 import org.example.sijalsystem.Repository.InterviewSessionRepository;
 import org.example.sijalsystem.Repository.RecordingInterviewRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -20,24 +22,21 @@ public class RecordingInterviewService {
 
     public void handleWebhook(Map<String, Object> payload) {
 
-        // payload.message
         Map<String, Object> message = asMap(payload.get("message"));
         if (message == null) return;
 
-        // لازم نتأكد أنه نهاية مكالمة (عشان نأخذ التسجيل)
         String type = asString(message.get("type"));
         if (!"end-of-call-report".equals(type)) {
             return;
         }
 
-        // message.artifact
+
         Map<String, Object> artifact = asMap(message.get("artifact"));
         if (artifact == null) return;
 
-        // 1) استخراج sessionId من رسائل الـ artifact
+
         Integer sessionId = extractSessionIdFromArtifact(artifact);
         if (sessionId == null) {
-            // ما نكسر الويبهوك، بس ما نقدر نحفظ بدون sessionId
             return;
         }
 
@@ -52,12 +51,10 @@ public class RecordingInterviewService {
 
         if (transcript != null && !transcript.isBlank()) {
             saveTranscript(sessionId, transcript);
+            interviewAnalysisByAiService.analyzeAndSave(sessionId, transcript);
+
         }
 
-        if (transcript != null && !transcript.isBlank()) {
-            saveTranscript(sessionId, transcript);
-            interviewAnalysisByAiService.analyzeAndSave(sessionId, transcript);
-        }
 
     }
 
@@ -125,7 +122,9 @@ public class RecordingInterviewService {
 
     public void saveRecording(Integer sessionId, String recordingUrl) {
         InterviewSession session = sessionRepo.findInterviewSessionById(sessionId);
-        if (session == null) throw new RuntimeException("InterviewSession not found");
+        if (session == null) {
+            throw new APIException("InterviewSession not found");
+        }
 
         RecordingInterview rec = recordingInterviewService.findById(sessionId).orElseGet(RecordingInterview::new);
 
@@ -135,9 +134,12 @@ public class RecordingInterviewService {
     }
 
     public void saveTranscript(Integer sessionId, String transcript) {
-        RecordingInterview rec = recordingInterviewService.findById(sessionId).orElseThrow(() -> new RuntimeException("Recording not found"));
-
+        RecordingInterview rec = recordingInterviewService.findRecordingInterviewById(sessionId);
+        if (rec==null){
+        throw new RuntimeException("Recording not found");
+        }
         rec.setTranscript(transcript);
+        rec.setCreatedAt(LocalDateTime.now());
         recordingInterviewService.save(rec);
     }
 }

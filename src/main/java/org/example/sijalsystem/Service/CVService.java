@@ -155,11 +155,10 @@ public class CVService {
 
     public CV addCv(Integer customerId, CV cv) {
 
-        Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
 
         cv.setCreatedAt(LocalDateTime.now());
-        cv.setCustomer(customer);   // مهم جدًا مع @MapsId
+        cv.setCustomer(customer);
 
         return cvRepository.save(cv);
     }

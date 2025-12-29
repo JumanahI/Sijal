@@ -32,9 +32,7 @@ public class CVController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateCV(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("customerId") Integer customerId) {
+    public ResponseEntity<?> updateCV(@RequestParam("file") MultipartFile file, @RequestParam("customerId") Integer customerId) {
 
         log.info("Received CV update request for customer: {}", customerId);
         CvUploadResponse response = cvService.updateCustomerCV(file, customerId);
@@ -51,9 +49,9 @@ public class CVController {
 
 
 
-//    @PostMapping("/customer/{customerId}")
-//    public CV addCv(@PathVariable Integer customerId, @RequestBody CV cv) {
-//        return cvService.addCv(customerId, cv);
-//    }
+    @PostMapping("/customer/{customerId}")
+    public CV addCv(@PathVariable Integer customerId, @RequestBody CV cv) {
+        return cvService.addCv(customerId, cv);
+    }
 
 }
