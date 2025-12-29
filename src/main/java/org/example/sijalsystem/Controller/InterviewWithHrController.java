@@ -27,6 +27,7 @@ public class InterviewWithHrController {
         return ResponseEntity.status(200).body(new APIResponse("Interview with HR added successfully"));
     }
 
+
     @PutMapping("/update-interview/{interview_id}")
     public ResponseEntity<?> updateInterviewWithHr(@PathVariable Integer interview_id, @RequestBody @Valid InterviewWithHR interviewWithHr){
         interviewWithHrService.updateInterviewWithHr(interview_id, interviewWithHr);

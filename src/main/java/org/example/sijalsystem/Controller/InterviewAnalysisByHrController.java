@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class InterviewAnalysisByHrController {
 
+
     private final InterviewAnalysisByHrService interviewAnalysisByHrService;
 
     @GetMapping("/get-interviews-analysis")

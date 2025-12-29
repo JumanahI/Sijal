@@ -17,6 +17,7 @@ public class CardService {
     private final CardRepository cardRepository;
     private final CustomerRepository customerRepository;
 
+
     public List<Card> getCards(){
         return cardRepository.findAll();
     }

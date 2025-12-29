@@ -87,6 +87,7 @@ public class RatingHrService {
         return ratingHrRepository.findRatingHrByCustomerId(customer_id);
     }
 
+
     public RatingHr findTopByOrderByStarsDesc(){
         return ratingHrRepository.findTopByOrderByStarsDesc();
     }

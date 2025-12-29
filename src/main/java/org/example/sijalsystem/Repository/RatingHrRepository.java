@@ -2,8 +2,8 @@ package org.example.sijalsystem.Repository;
 
 import org.example.sijalsystem.Model.RatingHr;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
+
 
 public interface RatingHrRepository extends JpaRepository<RatingHr,Integer> {
 

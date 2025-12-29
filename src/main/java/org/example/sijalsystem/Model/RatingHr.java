@@ -22,7 +22,6 @@ public class RatingHr {
     private Integer stars;
 
 
-
     @ManyToOne
     private Customer customer;
 

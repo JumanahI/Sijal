@@ -20,6 +20,7 @@ public class SubscriptionController {
         return ResponseEntity.status(200).body(subscriptionService.getSubscriptions());
     }
 
+
     @PostMapping("/subscribe/{customer_id}")
     public ResponseEntity<?> subscribe(@PathVariable Integer customer_id){
         return ResponseEntity.status(200).body(subscriptionService.subscribe(customer_id));
