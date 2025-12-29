@@ -13,6 +13,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -36,7 +37,7 @@ public class RequestInterview {
 
     @NotNull(message = "Start time must not be null")
     @Column(columnDefinition = "dateTime not null")
-    private LocalDate startTime;
+    private LocalDateTime startTime;
 
     @CreationTimestamp
     @Column(columnDefinition = "dateTime ")

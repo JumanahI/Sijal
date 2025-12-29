@@ -34,6 +34,10 @@ public class RequestInterviewService {
         if(hr == null || customer == null){
             throw new APIException("HR or Customer not found");
         }
+        if (!hr.getStatus().equalsIgnoreCase("active")){
+            throw new APIException("The HR account is not active");
+        }
+
 
         Subscription lastSubscription = customer.getSubscriptionSet().stream()
                 .max(Comparator.comparing(Subscription::getId))
@@ -109,6 +113,9 @@ public class RequestInterviewService {
         }
         if (!hr.getRequestInterviewSet().contains(requestInterview)) {
             throw new APIException("HR not authorized to approve request");
+        }
+        if (!hr.getStatus().equalsIgnoreCase("active")){
+            throw new APIException("The HR account is not active");
         }
         requestInterview.setStatus("APPROVE");
         requestInterviewRepository.save(requestInterview);

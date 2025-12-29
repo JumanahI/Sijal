@@ -5,12 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIException;
+import org.example.sijalsystem.DTO.OUT.InterviewAnalysisDTOout;
 import org.example.sijalsystem.Model.InterviewSession;
-import org.example.sijalsystem.Model.InterviewAnalysisByAi; // عدّل الاسم لو مختلف
+import org.example.sijalsystem.Model.InterviewAnalysisByAi;
 import org.example.sijalsystem.Repository.InterviewSessionRepository;
 import org.example.sijalsystem.Repository.InterviewAnalysisByAiRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -21,10 +24,45 @@ public class InterviewAnalysisByAiService {
     private final InterviewSessionRepository sessionRepo;
     private final InterviewAnalysisByAiRepository analysisRepo;
     private final OpenAiService openAiService;
+    private final InterviewSessionRepository interviewSessionRepository;
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-    // ================== PUBLIC API ==================
+    public List<InterviewAnalysisDTOout> getAllAnalysesForCustomer(Integer customerId) {
+
+        List<InterviewAnalysisByAi> analyses = analysisRepo.findByInterviewSession_Customer_Id(customerId);
+        if (analyses.isEmpty()){
+            throw new APIException("No analysis for you sessions");
+        }
+        List<InterviewAnalysisDTOout> dtoList = new ArrayList<>();
+
+        for (InterviewAnalysisByAi a : analyses) {
+            dtoList.add(toDto(a));
+        }
+        return dtoList;
+    }
+
+    public InterviewAnalysisDTOout getAnalysisForSession(Integer customerId, Integer sessionId) {
+
+        boolean owned = sessionRepo.existsByIdAndCustomer_Id(sessionId, customerId);
+        if (!owned) throw new APIException("SESSION_NOT_FOUND");
+
+        InterviewAnalysisByAi analysis = analysisRepo.findByInterviewSession_Id(sessionId);
+        if (analysis==null){
+            throw new APIException("No analysis for this session");
+        }
+
+        return toDto(analysis);
+    }
+
+    private InterviewAnalysisDTOout toDto(InterviewAnalysisByAi a) {
+        return new InterviewAnalysisDTOout(
+                a.getFinalScore(),
+                a.getStrengths(),
+                a.getWeaknesses()
+        );
+    }
+
 
     @Transactional
     public void analyzeAndSave(Integer sessionId, String transcript) {
@@ -50,14 +88,13 @@ public class InterviewAnalysisByAiService {
 
         if (analysis == null) {
             analysis = new InterviewAnalysisByAi();
-            analysis.setInterviewSession(session); // مهم مع @MapsId
+            analysis.setInterviewSession(session);
         }
 
-// ===== finalScore =====
         int finalScore = analysisJson.get("finalScore").asInt();
         analysis.setFinalScore(finalScore);
 
-// ===== strengths =====
+
         String strengths = "";
         if (analysisJson.has("strengths") && analysisJson.get("strengths").isArray()) {
             strengths = StreamSupport
@@ -67,7 +104,7 @@ public class InterviewAnalysisByAiService {
         }
         analysis.setStrengths(strengths);
 
-// ===== weaknesses =====
+
         String weaknesses = "";
         if (analysisJson.has("weaknesses") && analysisJson.get("weaknesses").isArray()) {
             weaknesses = StreamSupport
@@ -77,11 +114,10 @@ public class InterviewAnalysisByAiService {
         }
         analysis.setWeaknesses(weaknesses);
 
-// ===== save =====
+        session.setStatus("COMPLETED");
         analysisRepo.save(analysis);
     }
 
-    // ================== PROMPT ==================
 
     private String buildPrompt(String transcript) {
         return """

@@ -18,34 +18,33 @@ public class QuestionService {
     private final OpenAiService openAiService;
     private final QuestionRepository questionRepository;
 
-    // Create
+
     public Question addQuestion(Question question) {
         return questionRepository.save(question);
     }
 
-    // Read all
+
     public List<Question> getAllQuestions() {
         return questionRepository.findAll();
     }
 
-    // Read one
+
     public Question getQuestionById(Integer id) {
         Question q = questionRepository.findQuestionById(id);
         if (q == null) throw new APIException("Question not found: " + id);
         return q;
     }
 
-    // Update
+
     @Transactional
     public Question updateQuestion(Integer id, Question updated) {
         Question old = questionRepository.findQuestionById(id);
         if (old == null) throw new APIException("Question not found: " + id);
-
         updated.setId(id);
         return questionRepository.save(updated);
     }
 
-    // Delete
+
     public void deleteQuestion(Integer id) {
         Question q = questionRepository.findQuestionById(id);
         if (q == null) throw new APIException("Question not found: " + id);
@@ -57,30 +56,28 @@ public class QuestionService {
         return questionRepository.findByInterviewSession_Id(sessionId);
     }
 
-
-
-
-
-
-    /**
-     * يولد أسئلة مقابلة بناءً على بيانات الـ CV
-     */
     public List<String> generateQuestionsFromCv(CV cv) {
 
         String prompt = buildPrompt(cv);
-
         String aiResponse = openAiService.ask(prompt);
 
         return parseQuestions(aiResponse);
     }
 
-    // ----------------- helpers -----------------
+    public List<String> generateQuestionsFromCvAndDes(CV cv, String jobDescription) {
+
+        String prompt = buildPromptFromCvAndJop(cv, jobDescription);
+        String aiResponse = openAiService.ask(prompt);
+        return parseQuestions(aiResponse);
+    }
+
+
 
     private String buildPrompt(CV cv) {
         return """
         You are a professional job interviewer.
 
-        Based on the following CV, generate 5 interview questions.
+        Based on the following CV, generate 3 interview questions.
         - Questions must be clear and relevant.
         - Each question must be on a separate line.
         - Do NOT number the questions.
@@ -104,6 +101,45 @@ public class QuestionService {
                 safe(cv.getExperience())
         );
     }
+
+    private String buildPromptFromCvAndJop(CV cv, String jobDescription) {
+        return """
+    You are a professional job interviewer.
+
+    Based on the following CV and Job Description, generate 4 interview questions.
+    - Questions must match both the candidate background and the job requirements.
+    - Questions must be clear and relevant.
+    - Each question must be on a separate line.
+    - Do NOT number the questions.
+    - Do NOT add explanations or extra text.
+
+    Job Description:
+    %s
+
+    CV Summary:
+    %s
+
+    Skills:
+    %s
+
+    Education:
+    %s
+
+    Experience:
+    %s
+    """.formatted(
+                safe(jobDescription),
+                safe(cv.getSummary()),
+                safe(cv.getSkills()),
+                safe(cv.getEducation()),
+                safe(cv.getExperience())
+        );
+    }
+
+
+
+
+
 
     private List<String> parseQuestions(String aiResponse) {
         return Arrays.stream(aiResponse.split("\\r?\\n"))

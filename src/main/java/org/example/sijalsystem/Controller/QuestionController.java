@@ -9,40 +9,40 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/questions")
+@RequestMapping("/api/v1/questions")
 @RequiredArgsConstructor
 public class QuestionController {
 
     private final QuestionService questionService;
 
-    @PostMapping
+    @PostMapping("/add")
     public Question addQuestion(@RequestBody Question question) {
         return questionService.addQuestion(question);
     }
 
-    @GetMapping
+    @GetMapping("/get-all")
     public List<Question> getAllQuestions() {
         return questionService.getAllQuestions();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-question-by-id/{id}")
     public Question getQuestionById(@PathVariable Integer id) {
         return questionService.getQuestionById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update-question/{id}")
     public Question updateQuestion(@PathVariable Integer id, @RequestBody Question question) {
         return questionService.updateQuestion(id, question);
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteQuestion(@PathVariable Integer id) {
         questionService.deleteQuestion(id);
     }
 
 
-    @GetMapping("/session/{sessionId}")
+    @GetMapping("/questions-for-session/{sessionId}")
     public List<Question> getQuestionsBySession(@PathVariable Integer sessionId) {
         return questionService.getQuestionsBySessionId(sessionId);
     }

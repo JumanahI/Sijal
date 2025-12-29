@@ -2,6 +2,7 @@ package org.example.sijalsystem.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.util.Set;
@@ -22,6 +23,9 @@ public class HR {
 
     @Column(columnDefinition = "varchar(250) not null")
     private String experience;
+
+    @Pattern(regexp = "active|not active")
+    private String status;
 
     @OneToOne
     @MapsId
