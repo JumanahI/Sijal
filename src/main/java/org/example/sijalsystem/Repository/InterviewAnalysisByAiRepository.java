@@ -12,6 +12,4 @@ public interface InterviewAnalysisByAiRepository extends JpaRepository<Interview
 
     List<InterviewAnalysisByAi> findByInterviewSession_Customer_Id(Integer customerId);
 
-
-    List<InterviewAnalysisByAi> findByInterviewSession_IdAndInterviewSession_Customer_Id(Integer sessionId, Integer customerId);
 }

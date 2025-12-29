@@ -18,8 +18,8 @@ public class OpenAiService {
     @Value("${openai.api-key}")
     private String apiKey;
 
-    // تقدر تغيّره من application.properties
-    @Value("${openai.model:gpt-5}")
+
+    @Value("${openai.model}")
     private String model;
 
     private final RestTemplate restTemplate = new RestTemplate();

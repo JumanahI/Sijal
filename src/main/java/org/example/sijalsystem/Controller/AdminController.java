@@ -10,14 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/v1/admin")
+@RequestMapping("/api/v1/admin")
 @RequiredArgsConstructor
 public class AdminController {
     private final HrService hrService;
 
+
+    //extra1
     @PostMapping("/active-account/{hrId}")
     public ResponseEntity<?> activeHrAccount(@PathVariable Integer hrId){
-        hrService.activeHrByAdmin(hrId);
+//        hrService.activeHrByAdmin(hrId);
         return ResponseEntity.status(200).body(new APIResponse("The HR account active successfully "));
     }
 }

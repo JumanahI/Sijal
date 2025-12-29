@@ -72,14 +72,12 @@ public class InterviewSessionService {
 
         List<String> questions;
 
-        if (jop != null && jop.getJopDescription() != null && !jop.getJopDescription().isBlank()) {
+        if (jop.getJobDescription() != null ) {
+            session.setJopDescription(jop.getJobDescription());
 
-            session.setJopDescription(jop.getJopDescription());
-
-            questions = questionGenerationService.generateQuestionsFromCvAndDes(cv, jop.getJopDescription());
+            questions = questionGenerationService.generateQuestionsFromCvAndDes(cv, jop.getJobDescription());
 
         } else {
-
             questions = questionGenerationService.generateQuestionsFromCv(cv);
         }
 

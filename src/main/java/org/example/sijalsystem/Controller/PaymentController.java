@@ -14,12 +14,12 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
-
+//extra17
     @GetMapping("/get-status/{id}")
     public ResponseEntity<?> getPaymentStatus(@PathVariable String id){
         return ResponseEntity.status(HttpStatus.OK).body(paymentService.getPaymentStatus(id));
     }
-
+//extra18
     @GetMapping("/callback")
     public ResponseEntity<String> handlePaymentCallback() {
     return ResponseEntity.ok("Subscription completed successfully");

@@ -23,7 +23,7 @@ public class CardService {
     }
 
     public void addCard(Integer customer_id , Card card){
-        Customer customer = customerRepository.findCustomerByUser_Id(customer_id);
+        Customer customer = customerRepository.findCustomerById(customer_id);
         if(customer == null){
             throw new APIException("Customer not found");
         }

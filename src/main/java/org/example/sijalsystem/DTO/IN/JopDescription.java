@@ -1,5 +1,7 @@
 package org.example.sijalsystem.DTO.IN;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -7,5 +9,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class JopDescription {
 
-    private String jopDescription;
+    @Column(columnDefinition = "TEXT")
+    private String jobDescription;
 }

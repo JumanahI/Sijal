@@ -36,7 +36,7 @@ public class QuestionService {
     }
 
 
-    @Transactional
+
     public Question updateQuestion(Integer id, Question updated) {
         Question old = questionRepository.findQuestionById(id);
         if (old == null) throw new APIException("Question not found: " + id);
