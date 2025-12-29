@@ -38,7 +38,7 @@ public class CVController {
         return ResponseEntity.ok(new APIResponse("cv created successfully"));
     }
 
-    @PutMapping("update-cv/{customerId}")
+    @PutMapping("/update-cv/{customerId}")
     public ResponseEntity<?> updateCv(
             @PathVariable Integer customerId,
             @RequestBody CvDataDTO cvDataDTO
@@ -47,7 +47,7 @@ public class CVController {
         return ResponseEntity.ok(new APIResponse("cv updated successfully"));
     }
 
-    @DeleteMapping("delete-cv/{customerId}")
+    @DeleteMapping("/delete-cv/{customerId}")
     public ResponseEntity<?> deleteCv(
             @PathVariable Integer customerId
     ) {

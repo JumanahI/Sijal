@@ -34,6 +34,10 @@ public class HR {
 
     @OneToMany(cascade = CascadeType.ALL , mappedBy = "hr")
     @JsonIgnore
+    private Set<RatingHr> ratingHr;
+
+    @OneToMany(cascade = CascadeType.ALL , mappedBy = "hr")
+    @JsonIgnore
     private Set<RequestInterview> requestInterviewSet;
 
 

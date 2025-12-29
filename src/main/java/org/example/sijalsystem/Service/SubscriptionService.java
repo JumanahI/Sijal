@@ -27,39 +27,37 @@ public class SubscriptionService {
         return subscriptionRepository.findAll();
     }
 
-    public PaymentResult subscribe(Integer customer_id){
+    public PaymentResult subscribe(Integer customer_id) {
 
         Customer customer = customerRepository.findCustomerById(customer_id);
-        if(customer == null){
+        if (customer == null) {
             throw new APIException("Customer not found");
         }
 
-        if(customer.getCardSet().isEmpty()){
+        if (customer.getCardSet().isEmpty()) {
             throw new APIException("Card not found, please enter your card first");
         }
 
-        if(customer.getSubscriptionSet().isEmpty()){
+        boolean hasPreviousRequest = !customer.getRequestInterviewSet().isEmpty(); // هل هناك طلب سابق؟
+        boolean hasActiveSubscription = customer.getSubscriptionSet().stream()
+                .anyMatch(s -> s.getEndDate().isAfter(LocalDate.now())); // الاشتراك الجاري
 
-            Card card = customer.getCardSet().stream()
-                    .findFirst()
-                    .orElseThrow(() -> new APIException("No card found"));
-
-            Subscription newSubscription = new Subscription();
-            newSubscription.setCustomer(customer);
-            newSubscription.setStartDate(LocalDate.now());
-            newSubscription.setEndDate(LocalDate.now().plusMonths(1));
-            subscriptionRepository.save(newSubscription);
-            return paymentService.processPayment(card, 50);
+        // الحالة 1: أول طلب → يسمح بالاشتراك
+        if (!hasPreviousRequest) {
+            return createSubscriptionAndPay(customer);
         }
 
-        Subscription lastSubscription = customer.getSubscriptionSet().stream()
-                .max(Comparator.comparing(Subscription::getId))
-                .orElseThrow(() -> new APIException("No subscription found"));
-
-        if(lastSubscription.getEndDate().isAfter(LocalDate.now())){
-            throw new APIException("Subscription is still active");
+        // الحالة 2: يوجد طلب سابق → فقط إذا كان هناك اشتراك جاري
+        if (hasPreviousRequest && hasActiveSubscription) {
+            return createSubscriptionAndPay(customer);
         }
 
+        // غير ذلك → رفض الاشتراك
+        throw new APIException("Cannot subscribe: no active subscription for previous request");
+    }
+
+    // دالة لإنشاء الاشتراك والدفع لتقليل التكرار
+    private PaymentResult createSubscriptionAndPay(Customer customer) {
 
         Card card = customer.getCardSet().stream()
                 .findFirst()
@@ -70,8 +68,10 @@ public class SubscriptionService {
         newSubscription.setStartDate(LocalDate.now());
         newSubscription.setEndDate(LocalDate.now().plusMonths(1));
         subscriptionRepository.save(newSubscription);
+
         return paymentService.processPayment(card, 50);
     }
+
 
 
 

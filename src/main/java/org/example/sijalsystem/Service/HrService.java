@@ -73,6 +73,10 @@ public class HrService {
         hrRepository.delete(hr);
     }
 
+    public List<HR> findAllHROrderByHighestRating(){
+        return hrRepository.findAllHROrderByHighestRating();
+    }
+
     public void activeHrByAdmin(Integer hrId){
         HR hr=hrRepository.findHRById(hrId);
         if (hr==null){

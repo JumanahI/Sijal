@@ -40,5 +40,9 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL , mappedBy = "customer")
     @JsonIgnore
     private Set<Subscription> subscriptionSet;
+
+    @OneToMany(cascade = CascadeType.ALL , mappedBy = "customer")
+    @JsonIgnore
+    private Set<RatingHr> ratingHr;
 }
 

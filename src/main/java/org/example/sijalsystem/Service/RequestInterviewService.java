@@ -2,6 +2,7 @@ package org.example.sijalsystem.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIException;
+import org.example.sijalsystem.DTO.IN.CvDataDTO;
 import org.example.sijalsystem.Model.*;
 import org.example.sijalsystem.Repository.CustomerRepository;
 import org.example.sijalsystem.Repository.HrRepository;
@@ -31,8 +32,12 @@ public class RequestInterviewService {
     public void sendRequestInterview(Integer customer_id, Integer hr_id, RequestInterview requestInterview) {
         HR hr = hrRepository.findHRById(hr_id);
         Customer customer = customerRepository.findCustomerById(customer_id);
-        if(hr == null || customer == null){
+
+        if (hr == null || customer == null) {
             throw new APIException("HR or Customer not found");
+        }
+        if(customer.getCv() == null) {
+            throw new APIException("Please enter your cv first");
         }
         if (!hr.getStatus().equalsIgnoreCase("active")){
             throw new APIException("The HR account is not active");
@@ -46,16 +51,26 @@ public class RequestInterviewService {
         if (lastSubscription != null && lastSubscription.getEndDate().isBefore(LocalDate.now())) {
             throw new APIException("Subscription is expired");
         }
+        boolean hasPreviousRequest = !customer.getRequestInterviewSet().isEmpty();
+        boolean hasActiveSubscription = customer.getSubscriptionSet().stream()
+                .anyMatch(s -> s.getEndDate().isAfter(LocalDate.now()));
 
-        if (!customer.getRequestInterviewSet().isEmpty()) {
-            throw new APIException("You can only send an interview request once");
+        // أول طلب → يسمح
+        // طلب سابق → يسمح فقط إذا يوجد اشتراك جاري
+        if (hasPreviousRequest && !hasActiveSubscription) {
+            throw new APIException("Cannot send request: no active subscription for previous request");
         }
 
         requestInterview.setStatus("PENDING");
         requestInterview.setHr(hr);
         requestInterview.setCustomer(customer);
         requestInterviewRepository.save(requestInterview);
-
+        CvDataDTO cv = new CvDataDTO();
+        cv.setSummary(customer.getCv().getSummary());
+        cv.setEducation( customer.getCv().getEducation());
+        cv.setExperience(customer.getCv().getExperience());
+        cv.setSkills(customer.getCv().getSkills());
+        // إرسال الإيميل للـ HR
         sendMailService.sendMessage(
                 hr.getUser().getEmail(),
                 "طلب مقابلة من " + customer.getUser().getName() + " 📩",
@@ -63,6 +78,15 @@ public class RequestInterviewService {
                         "لقد قام " + customer.getUser().getName() + " بطلب مقابلة معكم.\n\n" +
                         "رسالة العميل:\n" +
                         "\"" + requestInterview.getMessage() + "\"\n\n" +
+                        "السيره الذاتيه للعميل:\n" +
+                        "Summary:\n" +
+                        "\"" + customer.getCv().getSummary() + "\"\n\n" +
+                        "Education:\n" +
+                        "\"" + customer.getCv().getEducation() + "\"\n\n" +
+                        "Experience:\n" +
+                        "\"" + customer.getCv().getExperience() + "\"\n\n" +
+                        "Skills:\n" +
+                        "\"" + customer.getCv().getSkills() + "\"\n\n" +
                         "موعد المقابلة المقترح: " + requestInterview.getStartTime() + "\n\n" +
                         "مع تحياتنا،\n" +
                         "نظام إدارة المقابلات"
@@ -71,20 +95,20 @@ public class RequestInterviewService {
 
 
 
-    public void updateRequestInterview(Integer customer_id,Integer requestInterview_id, RequestInterview requestInterview) {
-        RequestInterview oldRequestInterview = requestInterviewRepository.findRequestInterviewById(requestInterview_id);
-        Customer customer = customerRepository.findCustomerById(customer_id);
+        public void updateRequestInterview(Integer customer_id,Integer requestInterview_id, RequestInterview requestInterview) {
+            RequestInterview oldRequestInterview = requestInterviewRepository.findRequestInterviewById(requestInterview_id);
+            Customer customer = customerRepository.findCustomerById(customer_id);
 
-        if (oldRequestInterview == null || customer == null) {
-            throw new APIException("Request interview or customer not found");
+            if (oldRequestInterview == null || customer == null) {
+                throw new APIException("Request interview or customer not found");
+            }
+            if(!requestInterview.getCustomer().getId().equals(customer.getId())){
+                throw new APIException("Customer not authorized to delete this request");
+            }
+            oldRequestInterview.setMessage(requestInterview.getMessage());
+            oldRequestInterview.setStartTime(requestInterview.getStartTime());
+            requestInterviewRepository.save(oldRequestInterview);
         }
-        if(!requestInterview.getCustomer().getId().equals(customer.getId())){
-            throw new APIException("Customer not authorized to delete this request");
-        }
-        oldRequestInterview.setMessage(requestInterview.getMessage());
-        oldRequestInterview.setStartTime(requestInterview.getStartTime());
-        requestInterviewRepository.save(oldRequestInterview);
-    }
 
     public void deleteRequestInterview(Integer customer_id ,Integer requestInterview_id) {
         RequestInterview requestInterview = requestInterviewRepository.findRequestInterviewById(requestInterview_id);

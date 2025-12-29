@@ -11,7 +11,6 @@ import org.example.sijalsystem.Repository.RequestInterviewRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class InterviewWithHrService {

@@ -22,7 +22,6 @@ public class SendMailService {
     private final CVRepository cvRepository;
     private final CVPdfGeneratorService pdfGeneratorService;
 
-
     public void sendMessage(String email, String subject, String body) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(email);

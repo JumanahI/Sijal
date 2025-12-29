@@ -15,8 +15,8 @@ public class OpenAiService {
     @Value("${openai.api-key}")
     private String apiKey;
 
-
-    @Value("${openai.model}")
+    // تقدر تغيّره من application.properties
+    @Value("${openai.model:gpt-5}")
     private String model;
 
     private final RestTemplate restTemplate = new RestTemplate();
@@ -104,6 +104,7 @@ public class OpenAiService {
         }
         return null;
     }
+
     public String askForJson(String prompt) {
         String strict = """
     Output ONLY valid JSON. No markdown. No extra text.
@@ -180,4 +181,6 @@ public class OpenAiService {
 
        return ask(prompt);
     }
+
+
 }
