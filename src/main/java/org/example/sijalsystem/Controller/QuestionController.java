@@ -41,7 +41,7 @@ public class QuestionController {
         questionService.deleteQuestion(id);
     }
 
-
+//extra19
     @GetMapping("/questions-for-session/{sessionId}")
     public List<Question> getQuestionsBySession(@PathVariable Integer sessionId) {
         return questionService.getQuestionsBySessionId(sessionId);

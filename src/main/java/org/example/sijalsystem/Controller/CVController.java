@@ -56,6 +56,9 @@ public class CVController {
     }
 
 
+
+
+    //extra2
     @PostMapping("/upload-cv")
     public ResponseEntity<?> uploadCV(@RequestParam("file") MultipartFile file, @RequestParam("customerId") Integer customerId) {
 
@@ -64,7 +67,7 @@ public class CVController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-
+//extra3
     @GetMapping("/download-cv/{id}")
     public ResponseEntity<?> downloadCVAsPdf(@PathVariable Integer id) {
         log.info("Request to download CV as PDF, id: {}", id);
@@ -80,7 +83,7 @@ public class CVController {
 
         return ResponseEntity.ok().headers(headers).body(pdfBytes);
     }
-
+//extra4
     @PostMapping("/send-cv-to-email/{customerId}")
     public ResponseEntity<?> sendCVByEmail(@PathVariable Integer customerId,
                                            @Valid @RequestBody SendCVEmailRequest request) {
@@ -91,14 +94,14 @@ public class CVController {
 
         return ResponseEntity.ok(new APIResponse("CV sent successfully to " + request.getRecipientEmail()));
     }
-
+//extra5
     @GetMapping("/get-recommendation/{customerId}")
     public ResponseEntity<?> recommendationFromAI (@PathVariable Integer customerId){
         return ResponseEntity.status(200).body(cvService.recommendationFromAI(customerId));
     }
 
 
-
+//extra6
     @GetMapping("/get-cv-by-customer/{id}")
     public ResponseEntity<?> getCVById(@PathVariable Integer id) {
         return ResponseEntity.ok(cvService.getCVById(id));

@@ -19,7 +19,7 @@ public class RequestInterviewController {
     public ResponseEntity<?> getAllRequestInterview(){
         return ResponseEntity.status(200).body(requestInterviewService.getRequestInterview());
     }
-
+//extra24
     @PostMapping("/add-Request/{customer_id}/{hr_id}")
     public ResponseEntity<?> addRequestInterview(@PathVariable Integer customer_id,@PathVariable Integer hr_id, @RequestBody @Valid RequestInterview requestInterview){
         requestInterviewService.sendRequestInterview(customer_id,hr_id,requestInterview);
@@ -38,13 +38,13 @@ public class RequestInterviewController {
         requestInterviewService.deleteRequestInterview(customer_id,request_id);
         return ResponseEntity.status(200).body(new APIResponse("Request interview deleted successfully"));
     }
-
+//extra25
     @PutMapping("/approve-request/{hr_id}/{request_id}")
     public ResponseEntity<?> approveRequest(@PathVariable Integer hr_id,@PathVariable Integer request_id){
         requestInterviewService.approveRequest(hr_id, request_id);
         return ResponseEntity.status(200).body(new APIResponse("Request interview approved successfully"));
     }
-
+//extra26
     @PutMapping("/reject-request/{hr_id}/{request_id}")
     public ResponseEntity<?> rejectRequest(@PathVariable Integer hr_id,@PathVariable Integer request_id){
         requestInterviewService.rejectRequest(hr_id, request_id);

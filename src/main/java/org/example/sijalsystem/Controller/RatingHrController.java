@@ -37,18 +37,18 @@ public class RatingHrController {
         ratingHrService.deleteRating(customer_id, rating_id);
         return ResponseEntity.status(200).body(new APIResponse("Rating deleted successfully"));
     }
-
+//extra20
     @GetMapping("/get-rating-by-hr/{hr_id}")
     public ResponseEntity<?> findRatingHrByHrId(@PathVariable Integer hr_id){
         return ResponseEntity.status(200).body(ratingHrService.findRatingHrByHrId(hr_id));
     }
-
+//extra21
     @GetMapping("/get-rating-by-customer/{customer_id}")
     public ResponseEntity<?> findRatingHrByCustomerId(@PathVariable Integer customer_id){
         return ResponseEntity.status(200).body(ratingHrService.findRatingHrByCustomerId(customer_id));
     }
 
-
+//extra22
     @GetMapping("/get-top-rating")
     public ResponseEntity<?> findTopByOrderByStarsDesc(){
         return ResponseEntity.status(200).body(ratingHrService.findTopByOrderByStarsDesc());

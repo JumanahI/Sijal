@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class InterviewAnalysisByAiController {
 
     private final InterviewAnalysisByAiService analysisService;
-
+//extra8
     @GetMapping("/all-analysis/{customerId}")
     public ResponseEntity<?> getAll(@PathVariable Integer customerId) {
         return ResponseEntity.status(200).body(analysisService.getAllAnalysesForCustomer(customerId));
     }
-
+//extra9
     @GetMapping("/analysis-for-session/{customerId}/{sessionId}")
     public ResponseEntity<?> getAnalysisForSession(@PathVariable Integer customerId, @PathVariable Integer sessionId) {
         return ResponseEntity.status(200).body(analysisService.getAnalysisForSession(customerId, sessionId));
