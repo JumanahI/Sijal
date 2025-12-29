@@ -3,10 +3,13 @@ package org.example.sijalsystem.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.sijalsystem.Model.CV;
+import org.example.sijalsystem.Model.InterviewAnalysisByHR;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 
 @Service
@@ -107,8 +110,8 @@ public class OpenAiService {
 
     public String askForJson(String prompt) {
         String strict = """
-    Output ONLY valid JSON. No markdown. No extra text.
-    """ + "\n\n" + prompt;
+                Output ONLY valid JSON. No markdown. No extra text.
+                """ + "\n\n" + prompt;
 
         String text = ask(strict);
         if (text == null) return null;
@@ -128,59 +131,123 @@ public class OpenAiService {
     public String cvImprovementSuggestions(CV cv) {
 
         String prompt = """
-    ROLE:
-    You are a senior HR professional and CV reviewer.
-
-    TASK:
-    Review the following CV data and provide improvement suggestions only.
-
-    RULES:
-    - Do NOT rewrite the CV
-    - Do NOT invent information
-    - Only suggest improvements
-    - Be clear and professional
-    - Return output as JSON
-
-    INPUT CV:
-    Summary:
-    "%s"
-
-    Skills:
-    "%s"
-
-    Education:
-    "%s"
-
-    Experience:
-    "%s"
-
-    OUTPUT:
-    Return ONLY valid JSON in the following exact format and nothing else:
-    
-    {
-    "summarySuggestions": ["..."],
-    "skillsSuggestions": ["..."],
-    "experienceSuggestions": ["..."],
-    "generalTips": ["..."]
-    }
-    
-    
-    IMPORTANT:
-    - Do not include explanations
-    - Do not include markdown
-    - Do not include comments
-    - Do not include text before or after the JSON
-    
-    
-    """.formatted(
+                ROLE:
+                You are a senior HR professional and CV reviewer.
+                
+                TASK:
+                Review the following CV data and provide improvement suggestions only.
+                
+                RULES:
+                - Do NOT rewrite the CV
+                - Do NOT invent information
+                - Only suggest improvements
+                - Be clear and professional
+                - Return output as JSON
+                
+                INPUT CV:
+                Summary:
+                "%s"
+                
+                Skills:
+                "%s"
+                
+                Education:
+                "%s"
+                
+                Experience:
+                "%s"
+                
+                OUTPUT:
+                Return ONLY valid JSON in the following exact format and nothing else:
+                
+                {
+                "summarySuggestions": ["..."],
+                "skillsSuggestions": ["..."],
+                "experienceSuggestions": ["..."],
+                "generalTips": ["..."]
+                }
+                
+                
+                IMPORTANT:
+                - Do not include explanations
+                - Do not include markdown
+                - Do not include comments
+                - Do not include text before or after the JSON
+                
+                
+                """.formatted(
                 safe(cv.getSummary()),
                 safe(cv.getSkills()),
                 safe(cv.getEducation()),
                 safe(cv.getExperience())
         );
 
-       return ask(prompt);
+        return ask(prompt);
     }
 
 
+    public String interviewDevelopmentPlanForCustomer(List<InterviewAnalysisByHR> analyses) {
+
+        StringBuilder input = new StringBuilder();
+
+        for (InterviewAnalysisByHR analysis : analyses) {
+            input.append("""
+                    Strengths:
+                    "%s"
+                    
+                    Weaknesses:
+                    "%s"
+                    
+                    Final Score:
+                    %d
+                    
+                    --------------------
+                    """.formatted(
+                    safe(analysis.getStrengths()),
+                    safe(analysis.getWeaknesses()),
+                    analysis.getFinalScore()
+            ));
+        }
+
+        String prompt = """
+                ROLE:
+                You are a senior HR career advisor.
+                
+                TASK:
+                Analyze interview feedback for a job candidate and create a personalized development plan.
+                
+                RULES:
+                - Base suggestions ONLY on the provided interview analysis
+                - Do NOT repeat the feedback text
+                - Do NOT invent skills or experience
+                - Focus on improvement and career readiness
+                - Be professional and concise
+                - Return EXACTLY valid JSON
+                
+                INPUT INTERVIEW FEEDBACK:
+                %s
+                
+                OUTPUT FORMAT:
+                Return ONLY JSON with the exact structure below:
+                
+                {
+                  "strengthsEnhancement": ["..."],
+                  "weaknessesImprovement": ["..."],
+                  "skillRecommendations": ["..."],
+                  "generalCareerTips": ["..."]
+                }
+                
+                IMPORTANT:
+                - Do NOT add any extra text, markdown, or comments
+                - Do NOT wrap JSON in code blocks
+                """.formatted(input.toString());
+
+        return ask(prompt);
+    }
+
+
+
 }
+
+
+

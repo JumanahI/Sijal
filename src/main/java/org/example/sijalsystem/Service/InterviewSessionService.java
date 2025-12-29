@@ -50,7 +50,6 @@ public class InterviewSessionService {
     }
 
 
-
     @Transactional
     public void startSessionAndGenerateQuestions(Integer userId, JopDescription jop) {
 

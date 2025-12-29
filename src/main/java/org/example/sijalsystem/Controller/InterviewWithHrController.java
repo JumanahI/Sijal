@@ -58,5 +58,15 @@ public class InterviewWithHrController {
         return ResponseEntity.status(200).body(new APIResponse("Interview with HR canceled successfully"));
     }
 
+    @GetMapping("/get-interview-by-hr/{hr_id}")
+    public ResponseEntity<?> getInterviewByHrId(@PathVariable Integer hr_id){
+        return ResponseEntity.status(200).body(interviewWithHrService.getInterviewByHrId(hr_id));
+    }
+
+    @GetMapping("/get-interview-by-customer/{customer_id}")
+    public ResponseEntity<?> getInterviewByCustomerId(@PathVariable Integer customer_id){
+        return ResponseEntity.status(200).body(interviewWithHrService.getInterviewByCustomerId(customer_id));
+    }
+
 
 }

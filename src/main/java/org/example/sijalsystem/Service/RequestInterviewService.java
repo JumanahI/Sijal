@@ -43,7 +43,6 @@ public class RequestInterviewService {
             throw new APIException("The HR account is not active");
         }
 
-
         Subscription lastSubscription = customer.getSubscriptionSet().stream()
                 .max(Comparator.comparing(Subscription::getId))
                 .orElse(null);
@@ -55,8 +54,7 @@ public class RequestInterviewService {
         boolean hasActiveSubscription = customer.getSubscriptionSet().stream()
                 .anyMatch(s -> s.getEndDate().isAfter(LocalDate.now()));
 
-        // أول طلب → يسمح
-        // طلب سابق → يسمح فقط إذا يوجد اشتراك جاري
+
         if (hasPreviousRequest && !hasActiveSubscription) {
             throw new APIException("Cannot send request: no active subscription for previous request");
         }
@@ -74,7 +72,8 @@ public class RequestInterviewService {
         sendMailService.sendMessage(
                 hr.getUser().getEmail(),
                 "طلب مقابلة من " + customer.getUser().getName() + " 📩",
-                "مرحبًا " + hr.getUser().getName() + ",\n\n" +
+                "Request ID " + requestInterview.getId() + ",\n\n" +
+                        "مرحبًا " + hr.getUser().getName() + ",\n\n" +
                         "لقد قام " + customer.getUser().getName() + " بطلب مقابلة معكم.\n\n" +
                         "رسالة العميل:\n" +
                         "\"" + requestInterview.getMessage() + "\"\n\n" +
@@ -92,8 +91,6 @@ public class RequestInterviewService {
                         "نظام إدارة المقابلات"
         );
     }
-
-
 
         public void updateRequestInterview(Integer customer_id,Integer requestInterview_id, RequestInterview requestInterview) {
             RequestInterview oldRequestInterview = requestInterviewRepository.findRequestInterviewById(requestInterview_id);

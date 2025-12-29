@@ -24,7 +24,6 @@ public class InterviewAnalysisByAiService {
     private final InterviewSessionRepository sessionRepo;
     private final InterviewAnalysisByAiRepository analysisRepo;
     private final OpenAiService openAiService;
-    private final InterviewSessionRepository interviewSessionRepository;
 
     private final ObjectMapper mapper = new ObjectMapper();
 

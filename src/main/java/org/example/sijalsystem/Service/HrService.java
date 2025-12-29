@@ -3,8 +3,12 @@ package org.example.sijalsystem.Service;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIException;
 import org.example.sijalsystem.DTO.IN.HrDTOIn;
+import org.example.sijalsystem.DTO.OUT.InterviewDevelopmentPlanDTO;
+import org.example.sijalsystem.Model.Customer;
 import org.example.sijalsystem.Model.HR;
+import org.example.sijalsystem.Model.InterviewAnalysisByHR;
 import org.example.sijalsystem.Model.User;
+import org.example.sijalsystem.Repository.CustomerRepository;
 import org.example.sijalsystem.Repository.HrRepository;
 import org.example.sijalsystem.Repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,7 @@ public class HrService {
     private final HrRepository hrRepository;
     private final UserService userService;
     private final UserRepository userRepository;
+    private final CustomerRepository customerRepository;
 
 
     public List<HR> getAllHrs(){
@@ -83,6 +88,7 @@ public class HrService {
             throw new APIException("The hr id is not exists");
         }
         hr.setStatus("active");
+        hrRepository.save(hr);
     }
 
 }

@@ -118,7 +118,14 @@ public class InterviewWithHrService {
                         "مع خالص التحية،\n" ;
 
         sendMailService.sendMessage(interviewWithHR.getRequest().getCustomer().getUser().getEmail(), subjectCancel, bodyCancel);
+    }
 
+    public List<InterviewWithHR> getInterviewByHrId(Integer hr_id){
+        return interviewWithHrRepository.findByRequest_Hr_Id(hr_id);
+    }
+
+    public List<InterviewWithHR> getInterviewByCustomerId(Integer customer_id){
+        return interviewWithHrRepository.findByRequest_Customer_Id(customer_id);
     }
 
 

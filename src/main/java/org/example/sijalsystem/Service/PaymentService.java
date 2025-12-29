@@ -55,7 +55,6 @@ public class PaymentService {
                     String.class
             );
 
-            // تحويل الاستجابة إلى DTO
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(response.getBody());
 

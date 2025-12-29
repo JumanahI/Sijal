@@ -44,5 +44,10 @@ public class HrController {
         return ResponseEntity.status(200).body(hrService.findAllHROrderByHighestRating());
     }
 
+    @PutMapping("/activate-hr/{hr_id}")
+    public ResponseEntity<?> activateHr(@PathVariable Integer hr_id){
+        hrService.activeHrByAdmin(hr_id);
+        return ResponseEntity.status(200).body(new APIResponse("Hr activated successfully"));
+    }
 
 }
