@@ -2,8 +2,10 @@ package org.example.sijalsystem.Controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIResponse;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Service.HrService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +19,9 @@ public class AdminController {
 
 
     //extra1
-    @PostMapping("/active-account/{hrId}")
-    public ResponseEntity<?> activeHrAccount(@PathVariable Integer hrId){
-//        hrService.activeHrByAdmin(hrId);
+    @PostMapping("/active-account")
+    public ResponseEntity<?> activeHrAccount(@AuthenticationPrincipal User user ){
+        hrService.activeHrByAdmin(user.getId());
         return ResponseEntity.status(200).body(new APIResponse("The HR account active successfully "));
     }
 }

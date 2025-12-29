@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 
 import org.example.sijalsystem.API.APIResponse;
 import org.example.sijalsystem.DTO.IN.JopDescription;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Service.InterviewSessionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.method.AuthorizeReturnObject;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -17,17 +20,17 @@ public class InterviewSessionController {
 
 //extra10
     private final InterviewSessionService interviewSessionService;
-    @PostMapping("/start-session-with-cv/{userId}")
-    public ResponseEntity<?> start(@PathVariable Integer userId) {
-        interviewSessionService.startSessionAndGenerateQuestions(userId,null);
+    @PostMapping("/start-session-with-cv")
+    public ResponseEntity<?> start(@AuthenticationPrincipal User user) {
+        interviewSessionService.startSessionAndGenerateQuestions(user.getId(),null);
         return ResponseEntity.status(200).body(new APIResponse("تم إعداد المقابلة بنجاح" +
                 "ستصلك رسالة على بريدك الإلكتروني تتضمن رقم جلسة المقابلة وخطوات البدء" +
                 "يرجى التأكد من جاهزية الهاتف قبل بدء المقابلة. "));
     }
-//extra11
-    @PostMapping("/start-session-with-description/{customerId}")
-    public ResponseEntity<?> startWithDes(@PathVariable Integer customerId, @RequestBody JopDescription jobDescription){
-        interviewSessionService.startSessionAndGenerateQuestions(customerId,jobDescription);
+
+    @PostMapping("start-session-with-description")
+    public ResponseEntity<?> startWithDes(@AuthenticationPrincipal User user, @RequestBody JopDescription jopDescription){
+        interviewSessionService.startSessionAndGenerateQuestions(user.getId(),jopDescription);
         return ResponseEntity.status(200).body(new APIResponse("تم إعداد المقابلة بنجاح" +
                 "ستصلك رسالة على بريدك الإلكتروني تتضمن رقم جلسة المقابلة وخطوات البدء" +
                 "يرجى التأكد من جاهزية الهاتف قبل بدء المقابلة. "));
@@ -44,16 +47,16 @@ public class InterviewSessionController {
         return ResponseEntity.ok(payload);
     }
 
-//extra13
-    @GetMapping("/get-my-sessions/{customerId}")
-    public ResponseEntity<?> getMySessions(@PathVariable Integer customerId) {
-        return ResponseEntity.status(200).body(interviewSessionService.getMySessions(customerId));
+
+    @GetMapping("/get-my-sessions")
+    public ResponseEntity<?> getMySessions(@AuthenticationPrincipal User user) {
+        return ResponseEntity.status(200).body(interviewSessionService.getMySessions(user.getId()));
     }
 
-//extra13
-    @GetMapping("/get-session/by/id/{customerId}/{sessionId}/")
-    public ResponseEntity<?> getSessionAnalysis(@PathVariable Integer customerId, @PathVariable Integer sessionId) {
-        return ResponseEntity.status(200).body(interviewSessionService.getMySessionById(customerId, sessionId));
+
+    @GetMapping("/get-session-by-id/{sessionId}")
+    public ResponseEntity<?> getSessionAnalysis(@AuthenticationPrincipal User user, @PathVariable Integer sessionId) {
+        return ResponseEntity.status(200).body(interviewSessionService.getMySessionById(user.getId(), sessionId));
     }
 
 

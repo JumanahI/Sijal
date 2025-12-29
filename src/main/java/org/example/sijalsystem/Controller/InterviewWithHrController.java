@@ -5,8 +5,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIResponse;
 import org.example.sijalsystem.Model.InterviewWithHR;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Service.InterviewWithHrService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -39,22 +41,22 @@ public class InterviewWithHrController {
         interviewWithHrService.deleteInterviewWithHr(interview_id);
         return ResponseEntity.status(200).body(new APIResponse("Interview with HR deleted successfully"));
     }
-//extra14
-    @PutMapping("/start-interview/{hr_id}/{interview_id}")
-    public ResponseEntity<?> startInterview(@PathVariable Integer hr_id,@PathVariable Integer interview_id){
-        interviewWithHrService.startInterview(hr_id, interview_id);
+
+    @PutMapping("/start-interview/{interview_id}")
+    public ResponseEntity<?> startInterview(@AuthenticationPrincipal User user, @PathVariable Integer interview_id){
+        interviewWithHrService.startInterview(user.getId(), interview_id);
         return ResponseEntity.status(200).body(new APIResponse("Interview with HR started successfully"));
     }
-//extra15
-    @PutMapping("/end-interview/{hr_id}/{interview_id}")
-    public ResponseEntity<?> endInterview(@PathVariable Integer hr_id,@PathVariable Integer interview_id){
-        interviewWithHrService.endInterview(hr_id, interview_id);
+
+    @PutMapping("/end-interview/{interview_id}")
+    public ResponseEntity<?> endInterview(@AuthenticationPrincipal User user,@PathVariable Integer interview_id){
+        interviewWithHrService.endInterview(user.getId(), interview_id);
         return ResponseEntity.status(200).body(new APIResponse("Interview with HR ended successfully"));
     }
-//extra16
-    @PutMapping("/cancel-interview/{hr_id}/{interview_id}")
-    public ResponseEntity<?> cancelInterview(@PathVariable Integer hr_id,@PathVariable Integer interview_id){
-        interviewWithHrService.cancelInterview(hr_id, interview_id);
+
+    @PutMapping("/cancel-interview/{interview_id}")
+    public ResponseEntity<?> cancelInterview(@AuthenticationPrincipal User user,@PathVariable Integer interview_id){
+        interviewWithHrService.cancelInterview(user.getId(), interview_id);
         return ResponseEntity.status(200).body(new APIResponse("Interview with HR canceled successfully"));
     }
 

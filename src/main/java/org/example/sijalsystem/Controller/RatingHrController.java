@@ -4,8 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIResponse;
 import org.example.sijalsystem.Model.RatingHr;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Service.RatingHrService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,32 +22,32 @@ public class RatingHrController {
         return ResponseEntity.status(200).body(ratingHrService.getRatingsHr());
     }
 
-    @PostMapping("/add-rating/{customer_id}/{hr_id}")
-    public ResponseEntity<?> addRatingHr(@PathVariable Integer customer_id, @PathVariable Integer hr_id, @RequestBody @Valid RatingHr ratingHr) {
-        ratingHrService.addHrRating(customer_id, hr_id, ratingHr);
+    @PostMapping("/add-rating/{hr_id}")
+    public ResponseEntity<?> addRatingHr(@AuthenticationPrincipal User user, @PathVariable Integer hr_id, @RequestBody @Valid RatingHr ratingHr) {
+        ratingHrService.addHrRating(user.getId(), hr_id, ratingHr);
         return ResponseEntity.status(200).body(new APIResponse("Rating added successfully"));
     }
 
-    @PutMapping("/update-rating/{customer_id}/{rating_id}")
-    public ResponseEntity<?> updateRatingHr(@PathVariable Integer customer_id, @PathVariable Integer rating_id, @RequestBody @Valid RatingHr ratingHr) {
-        ratingHrService.updateRating(customer_id, rating_id, ratingHr);
+    @PutMapping("/update-rating{rating_id}")
+    public ResponseEntity<?> updateRatingHr(@AuthenticationPrincipal User user, @PathVariable Integer rating_id, @RequestBody @Valid RatingHr ratingHr) {
+        ratingHrService.updateRating(user.getId(), rating_id, ratingHr);
         return ResponseEntity.status(200).body(new APIResponse("Rating updated successfully"));
     }
 
-    @DeleteMapping("/delete-interview/{customer_id}/{rating_id}")
-    public ResponseEntity<?> deleteRatingHr(@PathVariable Integer customer_id, @PathVariable Integer rating_id) {
-        ratingHrService.deleteRating(customer_id, rating_id);
+    @DeleteMapping("/delete-interview/{rating_id}")
+    public ResponseEntity<?> deleteRatingHr(@AuthenticationPrincipal User user, @PathVariable Integer rating_id) {
+        ratingHrService.deleteRating(user.getId(), rating_id);
         return ResponseEntity.status(200).body(new APIResponse("Rating deleted successfully"));
     }
-//extra20
+
     @GetMapping("/get-rating-by-hr/{hr_id}")
     public ResponseEntity<?> findRatingHrByHrId(@PathVariable Integer hr_id){
         return ResponseEntity.status(200).body(ratingHrService.findRatingHrByHrId(hr_id));
     }
-//extra21
-    @GetMapping("/get-rating-by-customer/{customer_id}")
-    public ResponseEntity<?> findRatingHrByCustomerId(@PathVariable Integer customer_id){
-        return ResponseEntity.status(200).body(ratingHrService.findRatingHrByCustomerId(customer_id));
+
+    @GetMapping("/get-rating-by-customer")
+    public ResponseEntity<?> findRatingHrByCustomerId(@AuthenticationPrincipal User user){
+        return ResponseEntity.status(200).body(ratingHrService.findRatingHrByCustomerId(user.getId()));
     }
 
 //extra22

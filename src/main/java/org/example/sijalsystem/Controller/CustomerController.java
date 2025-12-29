@@ -4,9 +4,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIResponse;
 import org.example.sijalsystem.DTO.IN.CustomerDTOIn;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Service.CustomerService;
 import org.example.sijalsystem.vaildationGroups.ValidationGroup1;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,15 +30,15 @@ public class CustomerController {
         return ResponseEntity.status(200).body(new APIResponse("created customer successfully"));
     }
 
-    @PutMapping("/update/{userId}")
-    public ResponseEntity<?> updateCustomer(@PathVariable Integer userId , @RequestBody @Validated(ValidationGroup1.class) CustomerDTOIn customerDTOIn){
-        customerService.updateCustomer(userId,customerDTOIn);
+    @PutMapping("/update")
+    public ResponseEntity<?> updateCustomer(@AuthenticationPrincipal User user , @RequestBody @Validated(ValidationGroup1.class) CustomerDTOIn customerDTOIn){
+        customerService.updateCustomer(user.getId(),customerDTOIn);
         return ResponseEntity.status(200).body(new APIResponse("updated customer account successfully"));
     }
 
-    @DeleteMapping("/delete/{userId}")
-    public ResponseEntity<?> deleteCustomer(@PathVariable Integer userId){
-        customerService.deleteCustomer(userId);
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteCustomer(@AuthenticationPrincipal User userId){
+        customerService.deleteCustomer(userId.getId());
         return ResponseEntity.status(200).body(new APIResponse("deleted customer successfully"));
     }
 }

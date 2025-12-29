@@ -4,8 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIResponse;
 import org.example.sijalsystem.Model.RequestInterview;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Service.RequestInterviewService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,27 +29,27 @@ public class RequestInterviewController {
     }
 
 
-    @PutMapping("/update-Request/{customer_id}/{request_id}")
-    public ResponseEntity<?> updateRequestInterview(@PathVariable Integer customer_id,@PathVariable Integer request_id, @RequestBody @Valid RequestInterview requestInterview){
-        requestInterviewService.updateRequestInterview(customer_id,request_id,requestInterview);
+    @PutMapping("/update-Request/{request_id}")
+    public ResponseEntity<?> updateRequestInterview(@AuthenticationPrincipal User user, @PathVariable Integer request_id, @RequestBody @Valid RequestInterview requestInterview){
+        requestInterviewService.updateRequestInterview(user.getId(),request_id,requestInterview);
         return ResponseEntity.status(200).body(new APIResponse("Request interview updated successfully"));
     }
 
-    @DeleteMapping("/delete-Request/{request_id}/{customer_id}")
-    public ResponseEntity<?> deleteRequestInterview(@PathVariable Integer customer_id ,@PathVariable Integer request_id){
-        requestInterviewService.deleteRequestInterview(customer_id,request_id);
+    @DeleteMapping("/delete-Request/{request_id}")
+    public ResponseEntity<?> deleteRequestInterview(@AuthenticationPrincipal User user ,@PathVariable Integer request_id){
+        requestInterviewService.deleteRequestInterview(user.getId(),request_id);
         return ResponseEntity.status(200).body(new APIResponse("Request interview deleted successfully"));
     }
-//extra25
-    @PutMapping("/approve-request/{hr_id}/{request_id}")
-    public ResponseEntity<?> approveRequest(@PathVariable Integer hr_id,@PathVariable Integer request_id){
-        requestInterviewService.approveRequest(hr_id, request_id);
+
+    @PutMapping("/approve-request/{request_id}")
+    public ResponseEntity<?> approveRequest(@AuthenticationPrincipal User user,@PathVariable Integer request_id){
+        requestInterviewService.approveRequest(user.getId(), request_id);
         return ResponseEntity.status(200).body(new APIResponse("Request interview approved successfully"));
     }
-//extra26
-    @PutMapping("/reject-request/{hr_id}/{request_id}")
-    public ResponseEntity<?> rejectRequest(@PathVariable Integer hr_id,@PathVariable Integer request_id){
-        requestInterviewService.rejectRequest(hr_id, request_id);
+
+    @PutMapping("/reject-request/{request_id}")
+    public ResponseEntity<?> rejectRequest(@AuthenticationPrincipal User user,@PathVariable Integer request_id){
+        requestInterviewService.rejectRequest(user.getId(), request_id);
         return ResponseEntity.status(200).body(new APIResponse("Request interview rejected successfully"));
     }
 

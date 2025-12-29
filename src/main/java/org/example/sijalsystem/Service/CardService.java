@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIException;
 import org.example.sijalsystem.Model.Card;
 import org.example.sijalsystem.Model.Customer;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Repository.CardRepository;
 import org.example.sijalsystem.Repository.CustomerRepository;
 import org.springframework.stereotype.Service;
