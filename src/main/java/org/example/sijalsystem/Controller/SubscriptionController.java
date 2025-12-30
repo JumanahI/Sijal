@@ -22,7 +22,6 @@ public class SubscriptionController {
         return ResponseEntity.status(200).body(subscriptionService.getSubscriptions());
     }
 
-
     @PostMapping("/subscribe")
     public ResponseEntity<?> subscribe(@AuthenticationPrincipal User user){
         return ResponseEntity.status(200).body(subscriptionService.subscribe(user.getId()));

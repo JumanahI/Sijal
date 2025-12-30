@@ -28,7 +28,6 @@ public class RequestInterviewController {
         return ResponseEntity.status(200).body(new APIResponse("Request interview added successfully"));
     }
 
-
     @PutMapping("/update-Request/{request_id}")
     public ResponseEntity<?> updateRequestInterview(@AuthenticationPrincipal User user, @PathVariable Integer request_id, @RequestBody @Valid RequestInterview requestInterview){
         requestInterviewService.updateRequestInterview(user.getId(),request_id,requestInterview);
@@ -52,6 +51,5 @@ public class RequestInterviewController {
         requestInterviewService.rejectRequest(user.getId(), request_id);
         return ResponseEntity.status(200).body(new APIResponse("Request interview rejected successfully"));
     }
-
 
 }

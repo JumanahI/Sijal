@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIException;
 import org.example.sijalsystem.DTO.OUT.InterviewDevelopmentPlanDTO;
 import org.example.sijalsystem.Model.Customer;
+import org.example.sijalsystem.Model.HR;
 import org.example.sijalsystem.Model.InterviewAnalysisByHR;
 import org.example.sijalsystem.Model.InterviewWithHR;
 import org.example.sijalsystem.Repository.CustomerRepository;
+import org.example.sijalsystem.Repository.HrRepository;
 import org.example.sijalsystem.Repository.InterviewAnalysisByHrRepository;
 import org.example.sijalsystem.Repository.InterviewWithHrRepository;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ public class InterviewAnalysisByHrService {
 
     private final InterviewAnalysisByHrRepository interviewAnalysisByHrRepository;
     private final InterviewWithHrRepository interviewWithHrRepository;
+    private final HrRepository hrRepository;
     private final OpenAiService openAiService;
     private final CustomerRepository customerRepository;
     private final ObjectMapper objectMapper;
@@ -31,10 +34,15 @@ public class InterviewAnalysisByHrService {
     }
 
 
-    public void addInterviewAnalysisByHR(Integer interview_id,InterviewAnalysisByHR interviewAnalysisByHR){
+    public void addInterviewAnalysisByHR(Integer hr_id, Integer interview_id,InterviewAnalysisByHR interviewAnalysisByHR){
         InterviewWithHR interviewWithHR = interviewWithHrRepository.findInterviewWithHrById(interview_id);
-        if(interviewWithHR == null){
-            throw new APIException("Interview with HR not found");
+        HR hr = hrRepository.findHRById(hr_id);
+
+        if(interviewWithHR == null || hr ==null){
+            throw new APIException("Interview with HR or hr not found");
+        }
+        if(!interviewWithHR.getRequest().getHr().getId().equals(hr_id)){
+           throw new APIException("this hr not authorized to add analysis to the interview");
         }
         if(!interviewWithHR.getStatus().equalsIgnoreCase("COMPLETE")) {
             throw new APIException("Interview status is not COMPLETE");
@@ -43,13 +51,15 @@ public class InterviewAnalysisByHrService {
         interviewAnalysisByHrRepository.save(interviewAnalysisByHR);
     }
 
-    public void updateInterviewAnalysisByHR(Integer interviewAnalysis_id , InterviewAnalysisByHR interviewAnalysisByHR){
+    public void updateInterviewAnalysisByHR(Integer hr_id,Integer interviewAnalysis_id , InterviewAnalysisByHR interviewAnalysisByHR){
         InterviewAnalysisByHR oldInterviewAnalysisByHR = interviewAnalysisByHrRepository.findByInterviewWithHR_Id(interviewAnalysis_id);
-
-        if(oldInterviewAnalysisByHR == null){
-            throw new APIException("Interview analysis by HR not found");
+        HR hr = hrRepository.findHRById(hr_id);
+        if(oldInterviewAnalysisByHR == null || hr == null){
+            throw new APIException("Interview analysis by HR or hr not found");
         }
-
+        if(interviewAnalysisByHR.getInterviewWithHR().getRequest().getHr().getId().equals(hr_id)){
+            throw new APIException("this hr not authorized to update analysis to the interview");
+        }
         oldInterviewAnalysisByHR.setStrengths(interviewAnalysisByHR.getStrengths());
         oldInterviewAnalysisByHR.setWeaknesses(interviewAnalysisByHR.getWeaknesses());
         oldInterviewAnalysisByHR.setFinalScore(interviewAnalysisByHR.getFinalScore());
@@ -57,11 +67,14 @@ public class InterviewAnalysisByHrService {
     }
 
 
-    public void deleteInterviewAnalysisByHR(Integer interviewAnalysis_id){
+    public void deleteInterviewAnalysisByHR(Integer hr_id,Integer interviewAnalysis_id){
         InterviewAnalysisByHR interviewAnalysisByHR = interviewAnalysisByHrRepository.findByInterviewWithHR_Id(interviewAnalysis_id);
-
-        if(interviewAnalysisByHR == null){
-            throw new APIException("Interview analysis by HR not found");
+        HR hr = hrRepository.findHRById(hr_id);
+        if(interviewAnalysisByHR == null || hr == null){
+            throw new APIException("Interview analysis by HR or hr not found");
+        }
+        if(interviewAnalysisByHR.getInterviewWithHR().getRequest().getHr().getId().equals(hr_id)){
+            throw new APIException("this hr not authorized to delete analysis to the interview");
         }
         interviewAnalysisByHrRepository.delete(interviewAnalysisByHR);
     }
