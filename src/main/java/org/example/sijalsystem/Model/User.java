@@ -27,8 +27,10 @@ public class User implements UserDetails {
 
     private String phoneNumber;
 
+    @Column(columnDefinition = "varchar(30) unique")
     private String email;
 
+    @Column(columnDefinition = "varchar(30) unique")
     private String username;
 
     private String name;
