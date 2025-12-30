@@ -40,4 +40,9 @@ public class CardController {
         cardService.deleteCard(user.getId(), card_id);
         return ResponseEntity.status(200).body(new APIResponse("Card deleted successfully"));
     }
+
+    @GetMapping("/get-cards-my-card")
+    public ResponseEntity<?> findMyCard(@AuthenticationPrincipal User user){
+        return ResponseEntity.status(200).body(cardService.findCardByCustomerId(user.getId()));
+    }
 }

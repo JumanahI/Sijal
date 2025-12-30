@@ -22,7 +22,7 @@ public class RequestInterviewController {
         return ResponseEntity.status(200).body(requestInterviewService.getRequestInterview());
     }
 
-    @PostMapping("/add-Request/{customer_id}/{hr_id}")
+    @PostMapping("/send-Request/{customer_id}/{hr_id}")
     public ResponseEntity<?> addRequestInterview(@PathVariable Integer customer_id,@PathVariable Integer hr_id, @RequestBody @Valid RequestInterview requestInterview){
         requestInterviewService.sendRequestInterview(customer_id,hr_id,requestInterview);
         return ResponseEntity.status(200).body(new APIResponse("Request interview added successfully"));
