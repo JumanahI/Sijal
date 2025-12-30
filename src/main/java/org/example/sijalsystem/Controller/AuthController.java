@@ -3,7 +3,9 @@ package org.example.sijalsystem.Controller;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.DTO.IN.LoginRequestDTO;
 import org.example.sijalsystem.DTO.IN.LoginResponse;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Security.JwtUtil;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +41,11 @@ import org.springframework.web.bind.annotation.*;
 
             return ResponseEntity.ok(token);
 
+        }
+
+        @GetMapping("/test/role")
+        public Object test(@AuthenticationPrincipal User user) {
+            return user.getAuthorities();
         }
     }
 

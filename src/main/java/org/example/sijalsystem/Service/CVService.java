@@ -94,8 +94,7 @@ public class CVService {
     }
 
     @Transactional
-    public CvUploadResponse uploadAndParseCV(Integer userId ,MultipartFile file, Integer customerId) {
-        User user = userRepository.findUserById(userId);
+    public CvUploadResponse uploadAndParseCV(MultipartFile file, Integer customerId) {
         validateFile(file);
         Customer customer = customerRepository.findCustomerById(customerId);
         if (customer == null) {

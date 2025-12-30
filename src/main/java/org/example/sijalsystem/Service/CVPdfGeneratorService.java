@@ -85,12 +85,6 @@ public class CVPdfGeneratorService {
                 .collect(Collectors.toList());
     }
 
-    private String formatHtmlText(String text) {
-        if (text == null || text.trim().isEmpty()) {
-            return null;
-        }
-        return text.replace("\n", "<br/>");
-    }
 
     private byte[] convertHtmlToPdf(String html) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
