@@ -64,6 +64,9 @@ public class SecurityConfig {
             "/api/v1/hr/update-hr",
             "/api/v1/hr/update-hr",
             "/api/v1/hr/update-hr",
+            "/api/v1/Interview-analysis-by-hr/add-interview-analysis/**",
+            "/api/v1/Interview-analysis-by-hr/update-interview-analysis/**",
+            "/api/v1/Interview-analysis-by-hr/delete-interview-analysis/**"
 
     };
 
