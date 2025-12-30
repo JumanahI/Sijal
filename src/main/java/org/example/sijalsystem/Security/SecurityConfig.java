@@ -36,40 +36,75 @@ public class SecurityConfig {
             "/api/v1/customer/register-customer",
             "/api/v1/hr/register-hr",
             "/api/v1/hr/get-hr",
-            "/health"
+            "/api/v1/hr/get-hr-ordered",
+            "/api/v1/interview-session/get_question/**",
+            "/health",
+            "/api/v1/vapi/webhook",
+            "/api/v1/rating-hr/get-rating-by-hr/**",
+            "/api/v1/rating-hr/get-top-rating"
+
+
     };
 
     private static final String[] ADMIN_ENDPOINTS = {
             "/api/v1/cv/get-all-cv",
-            "/api/v1/hr/activate-hr",
-            "/api/v1/card/get-cards"
+            "/api/v1/card/get-cards",
+            "/api/v1/customer/get-customers",
+            "/api/v1/hr/activate-hr/**",
+            "/api/v1/Interview-analysis-by-hr/get-interviews-analysis",
+            "/api/v1/rating-hr/get-rating",
+            "/api/v1/request-interview/get-Request",
+            "/api/v1/subscription/get-subscription",
+            "/api/v1/Interview-analysis-by-hr/get-interviews-analysis"
     };
 
     private static final String[] CUSTOMER_ENDPOINTS = {
-            "/api/v1/customer/register-customer",
             "/api/v1/customer/update-customer",
             "/api/v1/customer/delete-customer",
             "/api/v1/cv/create-cv",
             "/api/v1/cv/update-cv",
             "/api/v1/cv/delete-cv",
             "/api/v1/cv/upload-cv",
+            "/api/v1/cv/download-generate-cv",
             "/api/v1/cv/send-cv-to-email",
             "/api/v1/cv/get-recommendation",
             "/api/v1/cv/get-my-cv",
             "/api/v1/card/add-card",
-            "/api/v1/card/update-card/{card_id}",
-            "/api/v1/card/delete-card/{card_id}",
-            "/api/v1/card/get-cards-by-customer",
+            "/api/v1/card/update-card/**",
+            "/api/v1/card/delete-card/**",
+            "/api/v1/card/get-my-cards",
+            "/api/v1/analysis-by-ai/all-analysis",
+            "/api/v1/analysis-by-ai/analysis-for-session/**",
+            "/api/v1/interview-session/start-session-with-cv",
+            "/api/v1/interview-session/start-session-with-description",
+            "/api/v1/interview-session/get-my-sessions",
+            "/api/v1/interview-session/get-session-by-id/**",
+            "/api/v1/rating-hr/add-rating/**",
+            "/api/v1/rating-hr/update-rating/**",
+            "/api/v1/rating-hr/delete-rating/**",
+            "/api/v1/rating-hr/get-rating-by-customer",
+            "/api/v1/request-interview/send-request/**",
+            "/api/v1/request-interview/update-request/**",
+            "/api/v1/request-interview/delete-request/**",
+            "/api/v1/subscription/subscribe",
+            "/api/v1/subscription/cancel-subscribe/**",
+            "/api/v1/Interview-with-hr/get-interview-by-customer",
+            "/api/v1/Interview-analysis-by-hr/development-plan"
+
     };
 
     private static final String[] HR_ENDPOINTS = {
-            "/api/v1/hr/activate-hr",
+            "/api/v1/hr/delete-hr",
             "/api/v1/hr/update-hr",
-            "/api/v1/hr/update-hr",
-            "/api/v1/hr/update-hr",
+            "/api/v1/request-interview/approve-request/**",
+            "/api/v1/request-interview/reject-request/**",
+            "/api/v1/Interview-with-hr/start-interview/**",
+            "/api/v1/Interview-with-hr/end-interview/**",
+            "/api/v1/Interview-with-hr/cancel-interview/**",
+            "/api/v1/Interview-with-hr/get-interview-by-hr"
+
 
     };
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {

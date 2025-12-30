@@ -20,7 +20,7 @@ public class InterviewAnalysisByHrController {
     private final InterviewAnalysisByHrService interviewAnalysisByHrService;
 
     @GetMapping("/get-interviews-analysis")
-    public ResponseEntity<?> getAllInterviewAnalysis(@AuthenticationPrincipal User user){
+    public ResponseEntity<?> getAllInterviewAnalysis(){
         return ResponseEntity.status(200).body(interviewAnalysisByHrService.getAllInterviewAnalysisByHr());
     }
 
@@ -42,19 +42,19 @@ public class InterviewAnalysisByHrController {
         return ResponseEntity.status(200).body(new APIResponse("Interview analysis deleted successfully"));
     }
 
-    @GetMapping("/get-interview-analysis-by-hr/{hr_id}")
-    public ResponseEntity<?> getInterviewAnalysisByHrId(@PathVariable Integer hr_id){
-        return ResponseEntity.status(200).body(interviewAnalysisByHrService.getInterviewAnalysisByHrId(hr_id));
+    @GetMapping("/get-interview-analysis-by-hr")
+    public ResponseEntity<?> getInterviewAnalysisByHrId(@AuthenticationPrincipal User user){
+        return ResponseEntity.status(200).body(interviewAnalysisByHrService.getInterviewAnalysisByHrId(user.getId()));
     }
 
-    @GetMapping("/get-interview-analysis-by-customer/{customer_id}")
-    public ResponseEntity<?> getInterviewAnalysisByCustomerId(@PathVariable Integer customer_id){
-        return ResponseEntity.status(200).body(interviewAnalysisByHrService.getInterviewAnalysisByCustomerId(customer_id));
+    @GetMapping("/get-interview-analysis-by-customer")
+    public ResponseEntity<?> getInterviewAnalysisByCustomerId(@AuthenticationPrincipal User user){
+        return ResponseEntity.status(200).body(interviewAnalysisByHrService.getInterviewAnalysisByCustomerId(user.getId()));
     }
 
 
-    @GetMapping("/development-plan/{customerId}")
-    public ResponseEntity<InterviewDevelopmentPlanDTO> getDevelopmentPlan(@PathVariable Integer customerId) {
-        return ResponseEntity.status(200).body(interviewAnalysisByHrService.getInterviewDevelopmentPlanForCustomer(customerId));
+    @GetMapping("/development-plan")
+    public ResponseEntity<?> getDevelopmentPlan(@AuthenticationPrincipal User user) {
+        return ResponseEntity.status(200).body(interviewAnalysisByHrService.getInterviewDevelopmentPlanForCustomer(user.getId()));
     }
 }

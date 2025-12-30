@@ -19,7 +19,7 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    @GetMapping("/get-customer")
+    @GetMapping("/get-customers")
     public ResponseEntity<?> getCustomer(){
         return ResponseEntity.status(200).body(customerService.getCustomers());
     }

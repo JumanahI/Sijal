@@ -30,6 +30,4 @@ public class CustomerDTOIn {
     @NotEmpty(message = "age must not be null" )
     private String age;
 
-    private String cvPath;
-
 }

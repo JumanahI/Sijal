@@ -17,25 +17,25 @@ public class RequestInterviewController {
 
     private final RequestInterviewService requestInterviewService;
 
-    @GetMapping("/get-Request")
+    @GetMapping("/get-request")
     public ResponseEntity<?> getAllRequestInterview(){
         return ResponseEntity.status(200).body(requestInterviewService.getRequestInterview());
     }
 
-    @PostMapping("/send-Request/{customer_id}/{hr_id}")
-    public ResponseEntity<?> addRequestInterview(@PathVariable Integer customer_id,@PathVariable Integer hr_id, @RequestBody @Valid RequestInterview requestInterview){
-        requestInterviewService.sendRequestInterview(customer_id,hr_id,requestInterview);
+    @PostMapping("/send-request/{hr_id}")
+    public ResponseEntity<?> addRequestInterview(@AuthenticationPrincipal User user,@PathVariable Integer hr_id, @RequestBody @Valid RequestInterview requestInterview){
+        requestInterviewService.sendRequestInterview(user.getId(),hr_id,requestInterview);
         return ResponseEntity.status(200).body(new APIResponse("Request interview added successfully"));
     }
 
 
-    @PutMapping("/update-Request/{request_id}")
+    @PutMapping("/update-request/{request_id}")
     public ResponseEntity<?> updateRequestInterview(@AuthenticationPrincipal User user, @PathVariable Integer request_id, @RequestBody @Valid RequestInterview requestInterview){
         requestInterviewService.updateRequestInterview(user.getId(),request_id,requestInterview);
         return ResponseEntity.status(200).body(new APIResponse("Request interview updated successfully"));
     }
 
-    @DeleteMapping("/delete-Request/{request_id}")
+    @DeleteMapping("/delete-request/{request_id}")
     public ResponseEntity<?> deleteRequestInterview(@AuthenticationPrincipal User user ,@PathVariable Integer request_id){
         requestInterviewService.deleteRequestInterview(user.getId(),request_id);
         return ResponseEntity.status(200).body(new APIResponse("Request interview deleted successfully"));

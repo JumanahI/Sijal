@@ -34,7 +34,7 @@ public class RatingHrController {
         return ResponseEntity.status(200).body(new APIResponse("Rating updated successfully"));
     }
 
-    @DeleteMapping("/delete-interview/{rating_id}")
+    @DeleteMapping("/delete-rating/{rating_id}")
     public ResponseEntity<?> deleteRatingHr(@AuthenticationPrincipal User user, @PathVariable Integer rating_id) {
         ratingHrService.deleteRating(user.getId(), rating_id);
         return ResponseEntity.status(200).body(new APIResponse("Rating deleted successfully"));
@@ -49,7 +49,6 @@ public class RatingHrController {
     public ResponseEntity<?> findRatingHrByCustomerId(@AuthenticationPrincipal User user){
         return ResponseEntity.status(200).body(ratingHrService.findRatingHrByCustomerId(user.getId()));
     }
-
 
     @GetMapping("/get-top-rating")
     public ResponseEntity<?> findTopByOrderByStarsDesc(){

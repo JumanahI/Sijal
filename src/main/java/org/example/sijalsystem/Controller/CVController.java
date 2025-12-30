@@ -66,7 +66,7 @@ public class CVController {
     }
 
 
-    @GetMapping("/download-cv")
+    @GetMapping("/download-generate-cv")
     public ResponseEntity<?> downloadCVAsPdf(@AuthenticationPrincipal User user) {
         log.info("Request to download CV as PDF, id: {}", user.getId());
 

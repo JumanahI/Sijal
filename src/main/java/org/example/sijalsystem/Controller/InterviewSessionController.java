@@ -28,7 +28,7 @@ public class InterviewSessionController {
                 "يرجى التأكد من جاهزية الهاتف قبل بدء المقابلة. "));
     }
 
-    @PostMapping("start-session-with-description")
+    @PostMapping("/start-session-with-description")
     public ResponseEntity<?> startWithDes(@AuthenticationPrincipal User user, @RequestBody JopDescription jopDescription){
         interviewSessionService.startSessionAndGenerateQuestions(user.getId(),jopDescription);
         return ResponseEntity.status(200).body(new APIResponse("تم إعداد المقابلة بنجاح" +

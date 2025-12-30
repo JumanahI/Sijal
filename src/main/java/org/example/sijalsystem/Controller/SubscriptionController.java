@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class SubscriptionController {
 
     private final SubscriptionService subscriptionService;
-    private final PaymentService paymentService;
 
     @GetMapping("/get-subscription")
     public ResponseEntity<?> getSubscriptions(){
@@ -28,7 +27,7 @@ public class SubscriptionController {
         return ResponseEntity.status(200).body(subscriptionService.subscribe(user.getId()));
     }
 
-    @DeleteMapping("/delete-subscribe/{subscription_id}")
+    @DeleteMapping("/cancel-subscribe/{subscription_id}")
     public ResponseEntity<?> updateSubscribe(@AuthenticationPrincipal User user,@PathVariable Integer subscription_id){
         subscriptionService.deleteSubscription(user.getId(),subscription_id);
         return ResponseEntity.status(200).body(new APIResponse("Subscription completed successfully"));

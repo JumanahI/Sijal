@@ -2,7 +2,6 @@ package org.example.sijalsystem.Controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.DTO.IN.LoginRequestDTO;
-import org.example.sijalsystem.DTO.IN.LoginResponse;
 import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Security.JwtUtil;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
