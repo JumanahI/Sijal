@@ -158,47 +158,7 @@ public class CVService {
         if (cv == null){
             throw new APIException("cv not found");
         }
-        return cvRepository.findCVById(customerId);
-    }
-
-
-    @Transactional
-    public CvUploadResponse updateCustomerCV(MultipartFile file, Integer customerId) {
-        // Validate file
-        validateFile(file);
-
-        // Get existing CV
-        CV existingCV = cvRepository.findCVByCustomerId(customerId);
-        if (existingCV == null){
-            throw new APIException("No CV found for customer:  +" + customerId);
-        }
-
-
-        try {
-            // Extract and parse new CV
-            String cvText = pdfParserService.extractTextFromPDF(file);
-            CvDataDTO cvData = n8nIntegrationService.parseCV(cvText, customerId);
-
-            // Update existing CV
-            existingCV.setSummary(cvData.getSummary());
-            existingCV.setSkills(cvData.getSkills());
-            existingCV.setEducation(cvData.getEducation());
-            existingCV.setExperience(cvData.getExperience());
-            existingCV.setCreatedAt(LocalDateTime.now());
-
-            CV updatedCV = cvRepository.save(existingCV);
-            log.info("CV updated successfully for customer: {}", customerId);
-
-            return new CvUploadResponse(
-                    updatedCV.getId(),
-                    "CV updated successfully with AI",
-                    cvData
-            );
-
-        } catch (IOException e) {
-            log.error("Error updating CV for customer {}: {}", customerId, e.getMessage());
-            throw new CVProcessingException("Failed to update CV file");
-        }
+        return cv;
     }
 
     public CVRecommendationDTO recommendationFromAI(Integer customerId){

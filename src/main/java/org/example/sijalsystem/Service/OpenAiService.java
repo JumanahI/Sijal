@@ -15,11 +15,11 @@ import java.util.List;
 @Service
 public class OpenAiService {
 
-    @Value("${openai.api-key}")
+    @Value("${openai.api-key:}")
     private String apiKey;
 
 
-    @Value("${openai.model}")
+    @Value("${openai.model:gpt-4.1-mini}")
     private String model;
 
     private final RestTemplate restTemplate = new RestTemplate();
