@@ -57,7 +57,7 @@ public class CVController {
 
 
 
-    //extra2
+
     @PostMapping("/upload-cv")
     public ResponseEntity<?> uploadCV(@AuthenticationPrincipal User user , @RequestParam("file") MultipartFile file, @RequestParam("customerId") Integer customerId) {
 

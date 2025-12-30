@@ -24,19 +24,19 @@ public class CustomerController {
         return ResponseEntity.status(200).body(customerService.getCustomers());
     }
 
-    @PostMapping("/create-customer")
+    @PostMapping("/register-customer")
     public ResponseEntity<?> addCustomer(@RequestBody @Valid CustomerDTOIn customerDTOIn){
         customerService.addCustomer(customerDTOIn);
         return ResponseEntity.status(200).body(new APIResponse("created customer successfully"));
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update-customer")
     public ResponseEntity<?> updateCustomer(@AuthenticationPrincipal User user , @RequestBody @Validated(ValidationGroup1.class) CustomerDTOIn customerDTOIn){
         customerService.updateCustomer(user.getId(),customerDTOIn);
         return ResponseEntity.status(200).body(new APIResponse("updated customer account successfully"));
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete-customer")
     public ResponseEntity<?> deleteCustomer(@AuthenticationPrincipal User userId){
         customerService.deleteCustomer(userId.getId());
         return ResponseEntity.status(200).body(new APIResponse("deleted customer successfully"));

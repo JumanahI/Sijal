@@ -11,7 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/ratingHr")
+@RequestMapping("/api/v1/rating-hr")
 @RequiredArgsConstructor
 public class RatingHrController {
 
@@ -50,7 +50,7 @@ public class RatingHrController {
         return ResponseEntity.status(200).body(ratingHrService.findRatingHrByCustomerId(user.getId()));
     }
 
-//extra22
+
     @GetMapping("/get-top-rating")
     public ResponseEntity<?> findTopByOrderByStarsDesc(){
         return ResponseEntity.status(200).body(ratingHrService.findTopByOrderByStarsDesc());

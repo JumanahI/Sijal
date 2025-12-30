@@ -40,7 +40,7 @@ public class HrController {
         hrService.deleteHr(user.getId());
         return ResponseEntity.status(200).body(new APIResponse("HR account deleted successfully"));
     }
-//extra7
+
     @GetMapping("/get-hr-ordered")
     public ResponseEntity<?> findAllHROrderByHighestRating(){
         return ResponseEntity.status(200).body(hrService.findAllHROrderByHighestRating());

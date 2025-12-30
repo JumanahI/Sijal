@@ -6,7 +6,6 @@ import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Service.HrService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +17,7 @@ public class AdminController {
     private final HrService hrService;
 
 
-    //extra1
+
     @PostMapping("/active-account")
     public ResponseEntity<?> activeHrAccount(@AuthenticationPrincipal User user ){
         hrService.activeHrByAdmin(user.getId());

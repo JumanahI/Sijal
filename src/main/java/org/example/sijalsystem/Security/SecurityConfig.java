@@ -34,23 +34,22 @@ public class SecurityConfig {
 
 
     private static final String[] PUBLIC_ENDPOINTS = {
-            "/api/v1/customer/create-customer"
+            "/api/v1/customer/create-customer",
+            "/api/v1/auth/**"
     };
 
     private static final String[] ADMIN_ENDPOINTS = {
-            "/api/v1/auth/**",
+
             "/api/v1/customer/create-customer",
             "/api/v1/hr/*/rating"
     };
 
     private static final String[] CUSTOMER_ENDPOINTS = {
-            "/api/v1/auth/**",
             "/api/v1/customer/create-customer",
             "/api/v1/hr/*/rating"
     };
 
     private static final String[] HR_ENDPOINTS = {
-            "/api/v1/auth/**",
             "/api/v1/customer/create-customer",
             "/api/v1/hr/*/rating"
     };

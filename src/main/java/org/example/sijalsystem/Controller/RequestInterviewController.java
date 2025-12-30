@@ -21,7 +21,7 @@ public class RequestInterviewController {
     public ResponseEntity<?> getAllRequestInterview(){
         return ResponseEntity.status(200).body(requestInterviewService.getRequestInterview());
     }
-//extra24
+
     @PostMapping("/add-Request/{customer_id}/{hr_id}")
     public ResponseEntity<?> addRequestInterview(@PathVariable Integer customer_id,@PathVariable Integer hr_id, @RequestBody @Valid RequestInterview requestInterview){
         requestInterviewService.sendRequestInterview(customer_id,hr_id,requestInterview);

@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/interview-sessions")
+@RequestMapping("/api/v1/interview-session")
 @RequiredArgsConstructor
 public class InterviewSessionController {
 
-//extra10
+
     private final InterviewSessionService interviewSessionService;
     @PostMapping("/start-session-with-cv")
     public ResponseEntity<?> start(@AuthenticationPrincipal User user) {
@@ -36,7 +36,7 @@ public class InterviewSessionController {
                 "يرجى التأكد من جاهزية الهاتف قبل بدء المقابلة. "));
     }
 
-//extra12
+
     @GetMapping("/get_question/{sessionId}")
     public ResponseEntity<?> getSession(@PathVariable String sessionId) {
         Map<String, Object> payload = interviewSessionService.getSessionPayload(sessionId);
