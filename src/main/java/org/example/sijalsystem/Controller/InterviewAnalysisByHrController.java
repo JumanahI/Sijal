@@ -25,20 +25,20 @@ public class InterviewAnalysisByHrController {
     }
 
     @PostMapping("/add-interview-analysis/{interview_id}")
-    public ResponseEntity<?> addInterviewAnalysis(@PathVariable Integer interview_id , @RequestBody @Valid InterviewAnalysisByHR interviewAnalysisByHR){
-        interviewAnalysisByHrService.addInterviewAnalysisByHR(interview_id,interviewAnalysisByHR);
+    public ResponseEntity<?> addInterviewAnalysis(@AuthenticationPrincipal User user, Integer hr_id,@PathVariable Integer interview_id , @RequestBody @Valid InterviewAnalysisByHR interviewAnalysisByHR){
+        interviewAnalysisByHrService.addInterviewAnalysisByHR(user.getId(),interview_id,interviewAnalysisByHR);
         return ResponseEntity.status(200).body(new APIResponse("Interview analysis added successfully"));
     }
 
     @PutMapping("/update-interview-analysis/{analysis_id}")
-    public ResponseEntity<?> updateInterviewAnalysis(@PathVariable Integer analysis_id, @RequestBody @Valid InterviewAnalysisByHR interviewAnalysisByHR){
-        interviewAnalysisByHrService.updateInterviewAnalysisByHR(analysis_id, interviewAnalysisByHR);
+    public ResponseEntity<?> updateInterviewAnalysis(@AuthenticationPrincipal User user,@PathVariable Integer analysis_id, @RequestBody @Valid InterviewAnalysisByHR interviewAnalysisByHR){
+        interviewAnalysisByHrService.updateInterviewAnalysisByHR(user.getId(),analysis_id, interviewAnalysisByHR);
         return ResponseEntity.status(200).body(new APIResponse("Interview analysis updated successfully"));
     }
 
     @DeleteMapping("/delete-interview-analysis/{analysis_id}")
-    public ResponseEntity<?> deleteInterviewAnalysis(@PathVariable Integer analysis_id){
-        interviewAnalysisByHrService.deleteInterviewAnalysisByHR(analysis_id);
+    public ResponseEntity<?> deleteInterviewAnalysis(@AuthenticationPrincipal User user,@PathVariable Integer analysis_id){
+        interviewAnalysisByHrService.deleteInterviewAnalysisByHR(user.getId(),analysis_id);
         return ResponseEntity.status(200).body(new APIResponse("Interview analysis deleted successfully"));
     }
 

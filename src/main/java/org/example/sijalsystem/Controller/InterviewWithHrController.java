@@ -23,12 +23,6 @@ public class InterviewWithHrController {
         return ResponseEntity.status(200).body(interviewWithHrService.getAllInterviewWithHr());
     }
 
-    @PostMapping("/add-interview/{request_id}")
-    public ResponseEntity<?> addInterviewWithHr(@PathVariable Integer request_id,@RequestBody @Valid InterviewWithHR interviewWithHr){
-        interviewWithHrService.addInterviewWithHr(request_id,interviewWithHr);
-        return ResponseEntity.status(200).body(new APIResponse("Interview with HR added successfully"));
-    }
-
 
     @PutMapping("/update-interview/{interview_id}")
     public ResponseEntity<?> updateInterviewWithHr(@PathVariable Integer interview_id, @RequestBody @Valid InterviewWithHR interviewWithHr){

@@ -25,6 +25,7 @@ public class HR {
     private String experience;
 
     @Pattern(regexp = "active|not active")
+    @Column(columnDefinition = "varchar(25) not null")
     private String status;
 
     @OneToOne

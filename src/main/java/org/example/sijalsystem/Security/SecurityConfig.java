@@ -96,6 +96,10 @@ public class SecurityConfig {
     private static final String[] HR_ENDPOINTS = {
             "/api/v1/hr/delete-hr",
             "/api/v1/hr/update-hr",
+            "/api/v1/hr/update-hr",
+            "/api/v1/Interview-analysis-by-hr/add-interview-analysis/**",
+            "/api/v1/Interview-analysis-by-hr/update-interview-analysis/**",
+            "/api/v1/Interview-analysis-by-hr/delete-interview-analysis/**",
             "/api/v1/request-interview/approve-request/**",
             "/api/v1/request-interview/reject-request/**",
             "/api/v1/Interview-with-hr/start-interview/**",
@@ -103,8 +107,8 @@ public class SecurityConfig {
             "/api/v1/Interview-with-hr/cancel-interview/**",
             "/api/v1/Interview-with-hr/get-interview-by-hr"
 
-
     };
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {

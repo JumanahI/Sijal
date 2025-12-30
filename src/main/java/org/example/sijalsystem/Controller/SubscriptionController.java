@@ -3,7 +3,6 @@ package org.example.sijalsystem.Controller;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIResponse;
 import org.example.sijalsystem.Model.User;
-import org.example.sijalsystem.Service.PaymentService;
 import org.example.sijalsystem.Service.SubscriptionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,7 +19,6 @@ public class SubscriptionController {
     public ResponseEntity<?> getSubscriptions(){
         return ResponseEntity.status(200).body(subscriptionService.getSubscriptions());
     }
-
 
     @PostMapping("/subscribe")
     public ResponseEntity<?> subscribe(@AuthenticationPrincipal User user){
