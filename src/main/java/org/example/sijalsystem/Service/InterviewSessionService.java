@@ -3,10 +3,7 @@ package org.example.sijalsystem.Service;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIException;
 import org.example.sijalsystem.DTO.IN.JopDescription;
-import org.example.sijalsystem.Model.CV;
-import org.example.sijalsystem.Model.Customer;
-import org.example.sijalsystem.Model.InterviewSession;
-import org.example.sijalsystem.Model.Question;
+import org.example.sijalsystem.Model.*;
 import org.example.sijalsystem.Repository.CVRepository;
 import org.example.sijalsystem.Repository.CustomerRepository;
 import org.example.sijalsystem.Repository.InterviewSessionRepository;
@@ -14,7 +11,9 @@ import org.example.sijalsystem.Repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +61,21 @@ public class InterviewSessionService {
                 if (cv==null) {
                     throw new APIException("CV not found for userId: " + userId);
                 }
+        Subscription lastSubscription = customer.getSubscriptionSet().stream()
+                .max(Comparator.comparing(Subscription::getId))
+                .orElse(null);
+
+        if (lastSubscription != null && lastSubscription.getEndDate().isBefore(LocalDate.now())) {
+            throw new APIException("Subscription is expired");
+        }
+        boolean hasPreviousRequest = !customer.getRequestInterviewSet().isEmpty();
+        boolean hasActiveSubscription = customer.getSubscriptionSet().stream()
+                .anyMatch(s -> s.getEndDate().isAfter(LocalDate.now()));
+
+
+        if (hasPreviousRequest && !hasActiveSubscription) {
+            throw new APIException("Cannot send request: no active subscription for previous request");
+        }
 
         InterviewSession session = new InterviewSession();
         session.setCustomer(customer);

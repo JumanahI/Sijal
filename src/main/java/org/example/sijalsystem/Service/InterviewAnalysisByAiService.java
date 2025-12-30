@@ -44,7 +44,7 @@ public class InterviewAnalysisByAiService {
     public InterviewAnalysisDTOout getAnalysisForSession(Integer customerId, Integer sessionId) {
 
         boolean owned = sessionRepo.existsByIdAndCustomer_Id(sessionId, customerId);
-        if (!owned) throw new APIException("SESSION_NOT_FOUND");
+        if (!owned) throw new APIException("not found sessions");
 
         InterviewAnalysisByAi analysis = analysisRepo.findByInterviewSession_Id(sessionId);
         if (analysis==null){

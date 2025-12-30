@@ -9,6 +9,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class JopDescription {
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String jobDescription;
 }

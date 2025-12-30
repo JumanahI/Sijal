@@ -33,7 +33,7 @@ public class User implements UserDetails {
 
     private String name;
 
-    @JsonIgnore
+
     private String password;
 
     private String age;
