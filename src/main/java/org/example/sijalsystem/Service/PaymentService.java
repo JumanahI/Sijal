@@ -33,7 +33,7 @@ public class PaymentService {
                     amountInHalala,
                     "SAR",
                     "Subscription payment",
-                    "http://localhost:8080/api/v1/payments/callback",
+                    "https://sijal.tech/api/v1/payments/callback",
                     card.getName(),
                     card.getNumber(),
                     card.getCvc(),

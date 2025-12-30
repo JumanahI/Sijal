@@ -68,7 +68,7 @@ public class InterviewSessionService {
         if (lastSubscription != null && lastSubscription.getEndDate().isBefore(LocalDate.now())) {
             throw new APIException("Subscription is expired");
         }
-        boolean hasPreviousRequest = !customer.getRequestInterviewSet().isEmpty();
+        boolean hasPreviousRequest = !customer.getSessions().isEmpty();
         boolean hasActiveSubscription = customer.getSubscriptionSet().stream()
                 .anyMatch(s -> s.getEndDate().isAfter(LocalDate.now()));
 

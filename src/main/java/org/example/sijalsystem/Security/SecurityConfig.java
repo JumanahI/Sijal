@@ -41,7 +41,8 @@ public class SecurityConfig {
             "/health",
             "/api/v1/vapi/webhook",
             "/api/v1/rating-hr/get-rating-by-hr/**",
-            "/api/v1/rating-hr/get-top-rating"
+            "/api/v1/rating-hr/get-top-rating",
+            "/api/v1/payments/callback"
 
 
     };

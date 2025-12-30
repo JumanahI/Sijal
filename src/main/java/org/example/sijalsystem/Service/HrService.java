@@ -39,7 +39,7 @@ public class HrService {
         hr.setAbout(hrDTOIn.getAbout());
         hr.setExperience(hrDTOIn.getExperience());
         hr.setUser(user);
-        hr.setStatus("active");
+        hr.setStatus("not active");
         hrRepository.save(hr);
 
         user.setHr(hr);
