@@ -26,6 +26,7 @@ public class InterviewSession {
 
     private LocalDateTime createdAt;
 
+    @Column(columnDefinition = "TEXT")
     private String jopDescription;
 
     @ManyToOne

@@ -3,7 +3,9 @@ package org.example.sijalsystem.Controller;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIException;
 import org.example.sijalsystem.Model.Question;
+import org.example.sijalsystem.Model.User;
 import org.example.sijalsystem.Service.QuestionService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,25 +27,9 @@ public class QuestionController {
         return questionService.getAllQuestions();
     }
 
-    @GetMapping("/get-question-by-id/{id}")
-    public Question getQuestionById(@PathVariable Integer id) {
-        return questionService.getQuestionById(id);
-    }
-
-    @PutMapping("/update-question/{id}")
-    public Question updateQuestion(@PathVariable Integer id, @RequestBody Question question) {
-        return questionService.updateQuestion(id, question);
-    }
-
-
-    @DeleteMapping("/delete/{id}")
-    public void deleteQuestion(@PathVariable Integer id) {
-        questionService.deleteQuestion(id);
-    }
-
 
     @GetMapping("/questions-for-session/{sessionId}")
-    public List<Question> getQuestionsBySession(@PathVariable Integer sessionId) {
-        return questionService.getQuestionsBySessionId(sessionId);
+    public List<Question> getQuestionsBySession(@AuthenticationPrincipal User user, @PathVariable Integer sessionId) {
+        return questionService.getQuestionsBySessionId(user.getId(),sessionId);
     }
 }

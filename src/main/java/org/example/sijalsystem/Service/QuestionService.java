@@ -1,10 +1,13 @@
 package org.example.sijalsystem.Service;
 
+import jakarta.mail.Session;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.sijalsystem.API.APIException;
 import org.example.sijalsystem.Model.CV;
+import org.example.sijalsystem.Model.InterviewSession;
 import org.example.sijalsystem.Model.Question;
+import org.example.sijalsystem.Repository.InterviewSessionRepository;
 import org.example.sijalsystem.Repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,7 @@ public class QuestionService {
 
     private final OpenAiService openAiService;
     private final QuestionRepository questionRepository;
+    private final InterviewSessionRepository interviewSessionRepository;
 
 
     public Question addQuestion(Question question) {
@@ -29,30 +33,13 @@ public class QuestionService {
     }
 
 
-    public Question getQuestionById(Integer id) {
-        Question q = questionRepository.findQuestionById(id);
-        if (q == null) throw new APIException("Question not found: " + id);
-        return q;
-    }
 
 
-
-    public Question updateQuestion(Integer id, Question updated) {
-        Question old = questionRepository.findQuestionById(id);
-        if (old == null) throw new APIException("Question not found: " + id);
-        updated.setId(id);
-        return questionRepository.save(updated);
-    }
-
-
-    public void deleteQuestion(Integer id) {
-        Question q = questionRepository.findQuestionById(id);
-        if (q == null) throw new APIException("Question not found: " + id);
-
-        questionRepository.delete(q);
-    }
-
-    public List<Question> getQuestionsBySessionId(Integer sessionId) {
+    public List<Question> getQuestionsBySessionId(Integer userId,Integer sessionId) {
+        InterviewSession session=interviewSessionRepository.findInterviewSessionById(sessionId);
+        if (session.getCustomer().getId().equals(userId)){
+            throw new APIException("You don't have this session");
+        }
         return questionRepository.findByInterviewSession_Id(sessionId);
     }
 
