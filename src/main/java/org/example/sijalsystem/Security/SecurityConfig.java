@@ -44,6 +44,9 @@ public class SecurityConfig {
     };
 
     private static final String[] CUSTOMER_ENDPOINTS = {
+            "/api/v1/customer/register-customer",
+            "/api/v1/customer/update-customer",
+            "/api/v1/customer/delete-customer",
             "/api/v1/cv/create-cv",
             "/api/v1/cv/update-cv",
             "/api/v1/cv/delete-cv",
@@ -58,7 +61,7 @@ public class SecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtUtil jwtUtil, JwtFilter jwtFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
 
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->
