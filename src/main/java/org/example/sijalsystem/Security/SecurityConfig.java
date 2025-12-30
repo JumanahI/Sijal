@@ -34,24 +34,26 @@ public class SecurityConfig {
 
 
     private static final String[] PUBLIC_ENDPOINTS = {
+            "/api/v1/auth/**",
             "/api/v1/customer/create-customer",
-            "/api/v1/auth/**"
+            "/health"
     };
 
     private static final String[] ADMIN_ENDPOINTS = {
-
-            "/api/v1/customer/create-customer",
-            "/api/v1/hr/*/rating"
+            "/api/v1/cv/get-all-cv",
     };
 
     private static final String[] CUSTOMER_ENDPOINTS = {
-            "/api/v1/customer/create-customer",
-            "/api/v1/hr/*/rating"
+            "/api/v1/cv/create-cv",
+            "/api/v1/cv/update-cv",
+            "/api/v1/cv/delete-cv",
+            "/api/v1/cv/upload-cv",
+            "/api/v1/cv/send-cv-to-email",
+            "/api/v1/cv/get-recommendation",
+            "/api/v1/cv/get-my-cv"
     };
 
     private static final String[] HR_ENDPOINTS = {
-            "/api/v1/customer/create-customer",
-            "/api/v1/hr/*/rating"
     };
 
 
@@ -65,9 +67,9 @@ public class SecurityConfig {
                         // endpoints العامة
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
-                        .requestMatchers(ADMIN_ENDPOINTS).hasAuthority("ADMIN")
-                        .requestMatchers(CUSTOMER_ENDPOINTS).hasAuthority("CUSTOMER")
-                        .requestMatchers(HR_ENDPOINTS).hasAuthority("HR")
+                        .requestMatchers(ADMIN_ENDPOINTS).hasRole("ADMIN")
+                        .requestMatchers(CUSTOMER_ENDPOINTS).hasRole("CUSTOMER")
+                        .requestMatchers(HR_ENDPOINTS).hasRole("HR")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

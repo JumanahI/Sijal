@@ -59,23 +59,23 @@ public class CVController {
 
 
     @PostMapping("/upload-cv")
-    public ResponseEntity<?> uploadCV(@AuthenticationPrincipal User user , @RequestParam("file") MultipartFile file, @RequestParam("customerId") Integer customerId) {
+    public ResponseEntity<?> uploadCV(@RequestParam("file") MultipartFile file , @AuthenticationPrincipal User user ) {
 
-        CvUploadResponse response = cvService.uploadAndParseCV(user.getId(),file, customerId);
+        CvUploadResponse response = cvService.uploadAndParseCV(file, user.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
 
     @GetMapping("/download-cv")
-    public ResponseEntity<?> downloadCVAsPdf(@AuthenticationPrincipal User id) {
-        log.info("Request to download CV as PDF, id: {}", id.getId());
+    public ResponseEntity<?> downloadCVAsPdf(@AuthenticationPrincipal User user) {
+        log.info("Request to download CV as PDF, id: {}", user.getId());
 
-        byte[] pdfBytes = cvPdfGeneratorService.generateCVPdf(id.getId());
+        byte[] pdfBytes = cvPdfGeneratorService.generateCVPdf(user.getId());
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDisposition(ContentDisposition.builder
-                        ("attachment").filename("Your-CV" + id.getId() + ".pdf")
+                        ("attachment").filename("Your-CV" + user.getId() + ".pdf")
                         .build()
         );
 
@@ -90,12 +90,12 @@ public class CVController {
     }
 
     @GetMapping("/get-recommendation")
-    public ResponseEntity<?> recommendationFromAI (@AuthenticationPrincipal User customerId){
-        return ResponseEntity.status(200).body(cvService.recommendationFromAI(customerId.getId()));
+    public ResponseEntity<?> recommendationFromAI (@AuthenticationPrincipal User user){
+        return ResponseEntity.status(200).body(cvService.recommendationFromAI(user.getId()));
     }
 
 
-    @GetMapping("/get-cv-by-customer")
+    @GetMapping("/get-my-cv")
     public ResponseEntity<?> getCVById(@AuthenticationPrincipal User id) {
         return ResponseEntity.ok(cvService.getCVById(id.getId()));
     }

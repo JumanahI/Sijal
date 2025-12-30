@@ -27,7 +27,7 @@ public class InterviewWithHR {
     private String status;
 
     @NotBlank(message = "Status must not be null")
-    @Column(columnDefinition = "varchar(70) not null")
+    @Column( nullable = false)
     private String meetingURL;
 
     @CreationTimestamp
