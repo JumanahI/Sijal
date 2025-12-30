@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
 
-
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration configuration) throws Exception {
@@ -32,15 +31,18 @@ public class SecurityConfig {
     }
 
 
-
     private static final String[] PUBLIC_ENDPOINTS = {
             "/api/v1/auth/**",
-            "/api/v1/customer/create-customer",
+            "/api/v1/customer/register-customer",
+            "/api/v1/hr/register-hr",
+            "/api/v1/hr/get-hr",
             "/health"
     };
 
     private static final String[] ADMIN_ENDPOINTS = {
             "/api/v1/cv/get-all-cv",
+            "/api/v1/hr/activate-hr",
+            "/api/v1/card/get-cards"
     };
 
     private static final String[] CUSTOMER_ENDPOINTS = {
@@ -50,10 +52,19 @@ public class SecurityConfig {
             "/api/v1/cv/upload-cv",
             "/api/v1/cv/send-cv-to-email",
             "/api/v1/cv/get-recommendation",
-            "/api/v1/cv/get-my-cv"
+            "/api/v1/cv/get-my-cv",
+            "/api/v1/card/add-card",
+            "/api/v1/card/update-card/{card_id}",
+            "/api/v1/card/delete-card/{card_id}",
+            "/api/v1/card/get-cards-by-customer",
     };
 
     private static final String[] HR_ENDPOINTS = {
+            "/api/v1/hr/activate-hr",
+            "/api/v1/hr/update-hr",
+            "/api/v1/hr/update-hr",
+            "/api/v1/hr/update-hr",
+
     };
 
 

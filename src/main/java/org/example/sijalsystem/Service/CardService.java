@@ -60,4 +60,8 @@ public class CardService {
         }
         cardRepository.delete(card);
     }
+
+    public  List<Card> findCardByCustomerId(Integer customer_id){
+        return cardRepository.findCardByCustomerId(customer_id);
+    }
 }
