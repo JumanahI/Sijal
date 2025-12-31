@@ -260,6 +260,7 @@ strengths, and weaknesses.
   <li>Implemented CV PDF generation endpoint (download as attachment)</li>
   <li>Implemented CV email sending endpoint (send generated CV PDF to recipient)</li>
   <li>Implemented OpenAI CV recommendations endpoint (cvImprovementSuggestions usage)</li>
+  <li>Implemented CV PDF HTML template using Thymeleaf (professional resume layout used in PDF generation)</li>
 </ul>
 
 <hr />
@@ -369,6 +370,12 @@ strengths, and weaknesses.
       <td>DELETE</td>
       <td><code>/api/v1/cv/delete-cv</code></td>
       <td>Delete CV for authenticated user</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/cv/get-my-cv</code></td>
+      <td>Get CV for authenticated user</td>
       <td>Yes</td>
     </tr>
   </tbody>
@@ -481,8 +488,19 @@ strengths, and weaknesses.
       <td><code>OpenAiService</code></td>
       <td>Generate CV improvement suggestions (cvImprovementSuggestions endpoint)</td>
     </tr>
+    <tr>
+      <td><code>CvPdfGeneratorService</code></td>
+      <td>Generate CV PDF using Thymeleaf HTML template (professional resume layout)</td>
+    </tr>
   </tbody>
 </table>
+
+<hr />
+
+<h2>Templates (Abdulmajed)</h2>
+<ul>
+  <li><code>resume.html</code> (Thymeleaf): Professional Resume HTML template used for CV PDF generation</li>
+</ul>
 
 <hr />
 
