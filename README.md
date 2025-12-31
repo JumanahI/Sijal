@@ -4,14 +4,14 @@
 
 <hr />
 
-<h2>نبذة عن المشروع (بالعربي)</h2>
+<h2>نبذة عن المشروع </h2>
 <p>
 <strong>سِجال</strong> منصة تساعد المستخدم على الاستعداد للمقابلات الوظيفية عبر جلسات مقابلة صوتية،
 حيث يتم إنشاء جلسة مقابلة وتوليد أسئلة مخصصة (حسب السيرة الذاتية أو الوصف الوظيفي)،
 ثم يتم حفظ التسجيل والنص (Transcript) وتحليل الإجابات باستخدام الذكاء الاصطناعي لإعطاء تقييم ونقاط قوة/ضعف.
 </p>
 
-<h2>Project Overview (English)</h2>
+<h2>Project Overview </h2>
 <p>
 <strong>Sijal</strong> is an AI-powered interview preparation platform that enables users to run voice-based mock interviews.
 The system creates an interview session, generates tailored questions (from CV and/or job description),
