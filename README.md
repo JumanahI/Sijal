@@ -25,7 +25,7 @@ strengths, and weaknesses.
 <ul>
   <li>Muath</li>
   <li>Jumana</li>
-  <li>Abdulmajid</li>
+  <li>Abdulmajed</li>
 </ul>
 <p>
 <strong>Note:</strong> Database relationships/ERD were designed collaboratively by the whole team (not attributed to one person).
@@ -262,6 +262,8 @@ strengths, and weaknesses.
   <li>Implemented CV email sending endpoint (send generated CV PDF to recipient)</li>
   <li>Implemented OpenAI CV recommendations endpoint (cvImprovementSuggestions usage)</li>
   <li>Implemented CV PDF HTML template using Thymeleaf (professional resume layout used in PDF generation)</li>
+  <li>Implemented the overall backend architecture and initialized the complete project scaffolding (packages/modules/folders) for the team</li>
+<li>Implemented shared conventions and base layers (DTO IN/OUT, Advice/exception handling structure, validation groups, and Thymeleaf templates setup)</li>
 </ul>
 
 <hr />
