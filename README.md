@@ -246,8 +246,8 @@ strengths, and weaknesses.
 
 <h2>Links</h2>
 <ul>
-  <li><strong>ERD:</strong> <a href="PUT_ERD_LINK_HERE">PUT_ERD_LINK_HERE</a></li>
+  <li><strong>ERD:</strong> <a href="https://lucid.app/lucidchart/ed586add-f401-4cce-8977-6620e5f93367/edit?viewport_loc=-2615%2C-189%2C4427%2C1956%2C0_0&invitationId=inv_c1f6603d-7adb-4735-a2e4-e164ef1abef8">https://lucid.app/lucidchart/ed586add-f401-4cce-8977-6620e5f93367/edit?viewport_loc=-2615%2C-189%2C4427%2C1956%2C0_0&invitationId=inv_c1f6603d-7adb-4735-a2e4-e164ef1abef8</a></li>
   <li><strong>Postman Documentation:</strong> <a href="https://documenter.getpostman.com/view/51095397/2sBXVbJZNn">https://documenter.getpostman.com/view/51095397/2sBXVbJZNn</a></li>
-  <li><strong>Figma:</strong> <a href="PUT_FIGMA_LINK_HERE">PUT_FIGMA_LINK_HERE</a></li>
+  <li><strong>Figma:</strong> <a href="https://www.figma.com/design/NIJsffp2YQOJp0cQm8bale/Customizable-Online-Car-Repair-Garage-UI-Design---Fully-Editable-Dashboard-for-Desktop---Free-Downlo--Community-?node-id=0-1&t=wBFLfeHHZzeEQ0Hg-1">https://www.figma.com/design/NIJsffp2YQOJp0cQm8bale/Customizable-Online-Car-Repair-Garage-UI-Design---Fully-Editable-Dashboard-for-Desktop---Free-Downlo--Community-?node-id=0-1&t=wBFLfeHHZzeEQ0Hg-1</a></li>
   <li><strong>Domain:</strong> <a href="https://sijal.tech">https://sijal.tech</a></li>
 </ul>
