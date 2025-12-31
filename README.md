@@ -45,6 +45,7 @@ strengths, and weaknesses.
   <li>Retrieve user sessions and session details with authorization (ownership checks)</li>
   <li>Health endpoint for deployment monitoring</li>
 <li><strong>Customer Accounts:</strong> register and manage user profiles</li>
+  <li><strong>CV PDF Template (Thymeleaf):</strong> render a professional resume HTML template used for PDF generation</li>
 <li><strong>CV Management:</strong> upload CV PDF, extract text, and parse CV data via n8n workflow</li>
 <li><strong>CV PDF Generation:</strong> generate and download a formatted CV as PDF</li>
 <li><strong>Email Delivery:</strong> send generated CV PDF to a specified email address</li>
