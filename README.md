@@ -507,7 +507,7 @@ strengths, and weaknesses.
 
 <hr />
 
-
+<!-- ===================== JUMANA SECTION ===================== -->
 
 <h2>Jumanah’s Contributions</h2>
 <ul>
@@ -527,12 +527,12 @@ strengths, and weaknesses.
   <li>Implemented payment status & callback endpoints</li>
   <li>Implemented card management endpoints (add/update/delete + get cards + get my cards)</li>
   <li>Implemented Jitsi meeting link creation service</li>
-  <li>Implemented email service (basic email + attachments and CV sending)</li>
+  <li>Implemented email service (basic email)</li>
 </ul>
 
 <hr />
 
-<h2>API Endpoints (Jumana)</h2>
+<h2>API Endpoints (Jumanah)</h2>
 
 <!-- HR MANAGEMENT -->
 <h3>HR Management</h3>
@@ -727,7 +727,7 @@ strengths, and weaknesses.
     </tr>
     <tr>
       <td>PUT</td>
-      <td><code>/api/v1/rating-hr/update-rating/{rating_id}</code></td>
+      <td><code>/api/v1/rating-hr/update-rating{rating_id}</code></td>
       <td>Update rating</td>
       <td>Yes</td>
     </tr>
@@ -764,10 +764,165 @@ strengths, and weaknesses.
   </tbody>
 </table>
 
-<!-- SERVICES -->
+<!-- REQUEST INTERVIEW -->
+<h3>Request Interview</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+      <th>Auth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/request-interview/get-request</code></td>
+      <td>Get all interview requests</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/v1/request-interview/send-request/{hr_id}</code></td>
+      <td>Send interview request to HR</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td><code>/api/v1/request-interview/update-request/{request_id}</code></td>
+      <td>Update interview request</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td><code>/api/v1/request-interview/approve-request/{request_id}</code></td>
+      <td>Approve request</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td><code>/api/v1/request-interview/reject-request/{request_id}</code></td>
+      <td>Reject request</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td><code>/api/v1/request-interview/delete-request/{request_id}</code></td>
+      <td>Delete request</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SUBSCRIPTION -->
+<h3>Subscription</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+      <th>Auth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/v1/subscription/subscribe</code></td>
+      <td>Create subscription</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/subscription/get-subscription</code></td>
+      <td>Get subscription</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td><code>/api/v1/subscription/cancel-subscribe/{subscription_id}</code></td>
+      <td>Cancel subscription</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- CARDS -->
+<h3>Cards</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+      <th>Auth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/card/get-cards</code></td>
+      <td>Get all cards</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/v1/card/add-card</code></td>
+      <td>Add card</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td><code>/api/v1/card/update-card/{card_id}</code></td>
+      <td>Update card</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td><code>/api/v1/card/delete-card/{card_id}</code></td>
+      <td>Delete card</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/card/get-my-cards</code></td>
+      <td>Get my cards</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- PAYMENTS -->
+<h3>Payments</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+      <th>Auth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/payments/get-status/{id}</code></td>
+      <td>Get payment status</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/payments/callback</code></td>
+      <td>Payment gateway callback</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
 <hr />
 
-<h2>Services (Jumana)</h2>
+<h2>Services (Jumanah)</h2>
 <table>
   <thead>
     <tr>
@@ -777,17 +932,92 @@ strengths, and weaknesses.
   </thead>
   <tbody>
     <tr>
+      <td><code>HrService</code></td>
+      <td>HR register/update/delete/activate + ordered listing</td>
+    </tr>
+    <tr>
+      <td><code>InterviewWithHrService</code></td>
+      <td>Start/update/cancel/end HR interviews + retrieve by HR/customer</td>
+    </tr>
+    <tr>
+      <td><code>InterviewAnalysisByHrService</code></td>
+      <td>CRUD HR interview analysis + generate development plan</td>
+    </tr>
+    <tr>
+      <td><code>RatingHrService</code></td>
+      <td>CRUD HR ratings + top rating + filters</td>
+    </tr>
+    <tr>
+      <td><code>RequestInterviewService</code></td>
+      <td>Send/update/approve/reject/delete interview requests</td>
+    </tr>
+    <tr>
+      <td><code>SubscriptionService</code></td>
+      <td>Subscribe/get/cancel subscription</td>
+    </tr>
+    <tr>
+      <td><code>PaymentService</code></td>
+      <td>Payment status retrieval</td>
+    </tr>
+    <tr>
+      <td><code>CardService</code></td>
+      <td>CRUD cards + get my cards</td>
+    </tr>
+    <tr>
       <td><code>JitsiService</code></td>
       <td>Create Jitsi room link (meeting link generation)</td>
     </tr>
     <tr>
       <td><code>SendMailService</code></td>
-      <td>Send emails (simple message + with attachment + CV sending)</td>
+      <td>Send emails (simple message)</td>
     </tr>
   </tbody>
 </table>
 
 <hr />
+
+<h2>Models (Jumanah)</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Used In</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>User</code></td>
+      <td>Auth/ownership checks across HR modules</td>
+    </tr>
+    <tr>
+      <td><code>InterviewWithHR</code></td>
+      <td>HR interview lifecycle</td>
+    </tr>
+    <tr>
+      <td><code>InterviewAnalysisByHR</code></td>
+      <td>HR analysis + development plan</td>
+    </tr>
+    <tr>
+      <td><code>RatingHr</code></td>
+      <td>HR rating module</td>
+    </tr>
+    <tr>
+      <td><code>RequestInterview</code></td>
+      <td>Request interview module</td>
+    </tr>
+    <tr>
+      <td><code>Card</code></td>
+      <td>Card management</td>
+    </tr>
+    <tr>
+      <td><code>CV</code></td>
+      <td>Email service (basic email)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
 
 <h2>Links</h2>
 <ul>
