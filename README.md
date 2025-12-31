@@ -486,6 +486,288 @@ strengths, and weaknesses.
 
 <hr />
 
+
+
+<h2>Jumanah’s Contributions</h2>
+<ul>
+  <li>Implemented HR management module (register/update/delete/activate HR + ordered listing)</li>
+  <li>Implemented HR interview lifecycle (start/update/cancel/end/delete + retrieval for customer/HR)</li>
+  <li>Implemented HR analysis module (CRUD interview analysis)</li>
+  <li>
+    <strong>Implemented AI Development Plan endpoint</strong>
+    <ul>
+      <li>Generate AI-based development plan for customer based on HR interview analysis</li>
+      <li>Endpoint: <code>GET /api/v1/Interview-analysis-by-hr/development-plan</code></li>
+    </ul>
+  </li>
+  <li>Implemented HR rating module (add/update/delete + top rating + filters by HR/customer)</li>
+  <li>Implemented interview request module (send/update/approve/reject/delete + list requests)</li>
+  <li>Implemented subscription module (subscribe/get/cancel)</li>
+  <li>Implemented payment status & callback endpoints</li>
+  <li>Implemented card management endpoints (add/update/delete + get cards + get my cards)</li>
+  <li>Implemented Jitsi meeting link creation service</li>
+  <li>Implemented email service (basic email + attachments and CV sending)</li>
+</ul>
+
+<hr />
+
+<h2>API Endpoints (Jumana)</h2>
+
+<!-- HR MANAGEMENT -->
+<h3>HR Management</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+      <th>Auth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/v1/hr/register-hr</code></td>
+      <td>Register HR</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td><code>/api/v1/hr/update-hr</code></td>
+      <td>Update HR</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td><code>/api/v1/hr/delete-hr</code></td>
+      <td>Delete HR</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td><code>/api/v1/hr/activate-hr/{hr_id}</code></td>
+      <td>Activate HR</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/hr/get-hr</code></td>
+      <td>Get HR list</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/hr/get-hr-ordered</code></td>
+      <td>Get ordered HR list</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- INTERVIEW WITH HR -->
+<h3>Interview With HR</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+      <th>Auth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PUT</td>
+      <td><code>/api/v1/Interview-with-hr/start-interview/{interview_id}</code></td>
+      <td>Start HR interview</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td><code>/api/v1/Interview-with-hr/update-interview/{interview_id}</code></td>
+      <td>Update HR interview</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td><code>/api/v1/Interview-with-hr/cancel-interview/{interview_id}</code></td>
+      <td>Cancel HR interview</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td><code>/api/v1/Interview-with-hr/end-interview/{interview_id}</code></td>
+      <td>End HR interview</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td><code>/api/v1/Interview-with-hr/delete-interview/{interview_id}</code></td>
+      <td>Delete HR interview</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/Interview-with-hr/get-interviews</code></td>
+      <td>Get all HR interviews</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/Interview-with-hr/get-interview-by-customer</code></td>
+      <td>Get HR interviews for customer</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/Interview-with-hr/get-interview-by-hr</code></td>
+      <td>Get HR interviews for HR</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- INTERVIEW ANALYSIS BY HR -->
+<h3>Interview Analysis By HR</h3>
+<p><strong>Base Path:</strong> <code>/api/v1/Interview-analysis-by-hr</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+      <th>Auth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>POST</td>
+      <td><code>/add-interview-analysis/{interview_id}</code></td>
+      <td>Add interview analysis (HR evaluation)</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td><code>/update-interview-analysis/{analysis_id}</code></td>
+      <td>Update interview analysis</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td><code>/delete-interview-analysis/{analysis_id}</code></td>
+      <td>Delete interview analysis</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/get-interviews-analysis</code></td>
+      <td>Get all interviews analysis</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/get-interview-analysis-by-customer</code></td>
+      <td>Get interview analysis for customer</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/get-interview-analysis-by-hr</code></td>
+      <td>Get interview analysis for HR</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/development-plan</code></td>
+      <td>Get AI-driven development plan for customer</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- HR RATING -->
+<h3>HR Rating</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Description</th>
+      <th>Auth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>POST</td>
+      <td><code>/api/v1/rating-hr/add-rating/{hr_id}</code></td>
+      <td>Add rating for HR</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td><code>/api/v1/rating-hr/update-rating/{rating_id}</code></td>
+      <td>Update rating</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td><code>/api/v1/rating-hr/delete-rating/{rating_id}</code></td>
+      <td>Delete rating</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/rating-hr/get-rating</code></td>
+      <td>Get all ratings</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/rating-hr/get-top-rating</code></td>
+      <td>Get top rated HR</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/rating-hr/get-rating-by-hr/{hr_id}</code></td>
+      <td>Get ratings for HR</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td><code>/api/v1/rating-hr/get-rating-by-customer</code></td>
+      <td>Get customer ratings</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SERVICES -->
+<hr />
+
+<h2>Services (Jumana)</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th>Main Responsibility</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>JitsiService</code></td>
+      <td>Create Jitsi room link (meeting link generation)</td>
+    </tr>
+    <tr>
+      <td><code>SendMailService</code></td>
+      <td>Send emails (simple message + with attachment + CV sending)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
 <h2>Links</h2>
 <ul>
   <li><strong>ERD:</strong> <a href="https://lucid.app/lucidchart/ed586add-f401-4cce-8977-6620e5f93367/edit?viewport_loc=-2615%2C-189%2C4427%2C1956%2C0_0&invitationId=inv_c1f6603d-7adb-4735-a2e4-e164ef1abef8">https://lucid.app/lucidchart/ed586add-f401-4cce-8977-6620e5f93367/edit?viewport_loc=-2615%2C-189%2C4427%2C1956%2C0_0&invitationId=inv_c1f6603d-7adb-4735-a2e4-e164ef1abef8</a></li>
